@@ -4,11 +4,11 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Acme Dashboard',
-    default: 'Acme Dashboard',
+    template: '%s | PI John Deere',
+    default: 'PI John Deere',
 },
-  description: 'The official Next.js Course Dashboard, built with App Router',
-  metadataBase: new URL('https://next-learn-dashboard.vercel.sh')
+  description: 'Aplicativo web de vistoria feito como projeto integrado da Fatec - Indaiatuba',
+  metadataBase: new URL('https://fatecid.com.br/cursos/')
 }
 
 export default function RootLayout({
