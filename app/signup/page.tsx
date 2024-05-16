@@ -1,13 +1,13 @@
 import JohnLogo from '@/app/ui/john-logo';
-import LoginForm from '@/app/ui/login-form';
+import SignupForm from '../ui/signup-form';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Login'
+  title: 'Cadastro'
 }
 
 
-export default function LoginPage() {
+export default function SignupPage() {
   return (
     <main className="flex items-center justify-center md:h-screen">
       <div className="relative mx-auto flex w-full flex-col space-y-2.5 p-4 md:-mt-32">
@@ -16,7 +16,7 @@ export default function LoginPage() {
             <JohnLogo />
           </div>
         </div>
-        <LoginForm />
+        <SignupForm />
       </div>
     </main>
   );

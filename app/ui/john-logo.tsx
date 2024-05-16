@@ -1,4 +1,3 @@
-import { GlobeAltIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { lusitana } from '@/app/ui/fonts';
 
@@ -15,7 +14,6 @@ export default function JohnLogo() {
         className=''
         alt='John Deere logo'
       /> 
-      <p className="text-[44px]">John Deere</p>
     </div>
   );
 }

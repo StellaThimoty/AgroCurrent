@@ -34,7 +34,6 @@ async function seedUsers(client) {
     // Insert data into the "user" table
     
     const hashedPassword = await bcrypt.hash(user.password, 10);
-    console.log
     const createdUsers = await client.sql`
     INSERT INTO users (name, email, password, category) VALUES (${user.name}, ${user.email}, ${hashedPassword}, 'None')
   `;

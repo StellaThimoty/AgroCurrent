@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
+import { hash } from 'bcrypt';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -18,6 +19,31 @@ const FormSchema = z.object({
   date: z.string(),
 })
 
+const UserSchema = z.object({
+  name: z.string(),
+  email: z.string().email({ message: "Insira um email válido" }),
+  password: z.string().min(6, { message: "A senha tem que ter mais que 6 caracteres"}),
+  passwordConfirm: z.string().min(6),
+  category: z.enum(['Administrador', 'Consultor', 'Registrador'], {
+    invalid_type_error: 'Selecione uma categoria válida',
+  }),
+}).superRefine(({passwordConfirm, password}, ctx) => {
+  if (passwordConfirm !== password) {
+    ctx.addIssue({
+      code: "custom",
+      message: "The passwords did not match"
+    })
+  }
+})
+
+export type UserState = {
+  errors?: {
+    password?: string[];
+    category?: string[];
+  };
+  message?: string | null;
+}
+
 export type State = {
   errors?: {
     customerId?: string[];
@@ -29,6 +55,7 @@ export type State = {
 
 const CreateInvoice = FormSchema.omit({ id: true, date: true })
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+const CreateUser = UserSchema
 
 export async function authenticate(prevState: string | undefined, formData: FormData) {
   try {
@@ -44,6 +71,40 @@ export async function authenticate(prevState: string | undefined, formData: Form
     }
     throw error
   }
+}
+
+export async function createUser(prevState: UserState, formData: FormData) {
+  const validatedFields = CreateUser.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+    password: formData.get('password'),
+    passwordConfirm: formData.get('passwordConfirm'),
+    category: formData.get('category')
+  })
+
+  if(!validatedFields.success){
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Preencha os campos corretamente',
+    }
+  }
+
+  const { name, email, password, category } = validatedFields.data
+  try {
+
+    const hashedPassword = await hash(password, 10);
+    await sql`
+  INSERT INTO users (name, email, password, category)
+  VALUES (${name}, ${email}, ${hashedPassword}, ${category})
+`;
+  } catch (error) {
+    return {
+      message: 'Database Error: Falha em criar usuário'
+    }
+  }
+
+  revalidatePath('/signup');
+  redirect('/dashboard')
 }
 
 export async function createInvoice(prevState: State, formData: FormData) {
