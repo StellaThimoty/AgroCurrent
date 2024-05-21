@@ -1,20 +1,25 @@
 import CardWrapper from '@/app/ui/dashboard/cards';
 import RevenueChart from '@/app/ui/dashboard/revenue-chart';
 import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
-import { fetchCardData } from '@/app/lib/data';
+import { fetchFilteredUsers } from '@/app/lib/data';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Suspense } from 'react'
 import { LatestInvoicesSkeleton, RevenueChartSkeleton, CardsSkeleton } from '@/app/ui/skeletons';
+import UserTable from '@/app/ui/users/usertable';
  
-export default async function Page() {
-  // const cardData = await fetchCardData()
+export default async function Page({ searchParams }: {searchParams?: {query?: string; page?: string;}}) {
+  const query = searchParams?.query || '';
+  const users = await fetchFilteredUsers(query)
   return (
-    <main>
-      <h1 className='flex flex-row mb-4 text-xl md:text-2xl'>Usuários</h1>
-      <Link href="/singup" className="flex items-center gap-5 self-start rounded-lg bg-green-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-green-400 md:text-base">
-        <span>Cadastrar usuário</span> <PlusCircleIcon className="w-5 md:w-6" />
-      </Link>
+    <main> 
+      <div className='flex'>
+        <h1 className='mb-4 text-2xl'>Usuários</h1>
+        <Link className='mx-4' href="/dashboard/create">
+          <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-lime-200">Cadastrar usuário <PlusCircleIcon className="w-6 mx-1" /></button>
+        </Link>
+      </div>
+      <UserTable users={users}/>
     </main>
   );
 }
