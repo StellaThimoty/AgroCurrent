@@ -73,7 +73,7 @@ export async function authenticate(prevState: string | undefined, formData: Form
   }
 }
 
-export async function createUser(prevState: UserState, formData: FormData) {
+export async function createUser(prevState: UserState, formData: FormData): Promise<UserState> {
   const validatedFields = CreateUser.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
@@ -94,8 +94,8 @@ export async function createUser(prevState: UserState, formData: FormData) {
     const dupl = await sql`SELECT * FROM users WHERE email LIKE ${email}`
     if (dupl.rowCount > 0)
       return {
-        errors: "Usuário já cadastrado",
-        message: "Apenas um e-mail por usuário é permitido"
+        errors: {},
+        message: "Usuário já existe. Apenas um e-mail por usuário é permitido"
     }
     const hashedPassword = await hash(password, 10);
     await sql`
@@ -103,7 +103,7 @@ export async function createUser(prevState: UserState, formData: FormData) {
   VALUES (${name}, ${email}, ${hashedPassword}, ${category})`;
   } catch (error) {
     return {
-      errors: "Erro",
+      errors: {},
       message: 'Database Error: Falha em criar usuário'
     }
   }
