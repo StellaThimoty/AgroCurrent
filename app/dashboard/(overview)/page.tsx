@@ -15,20 +15,6 @@ export default async function Page() {
       <Link href="/singup" className="flex items-center gap-5 self-start rounded-lg bg-green-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-green-400 md:text-base">
         <span>Cadastrar usuário</span> <PlusCircleIcon className="w-5 md:w-6" />
       </Link>
-
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <Suspense fallback={<CardsSkeleton/>}>
-          {/* <CardWrapper/> */}
-        </Suspense>
-      </div>
-      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-        <Suspense fallback={<RevenueChartSkeleton/>}>
-          {/* <RevenueChart/> */}
-        </Suspense>
-        <Suspense fallback={<LatestInvoicesSkeleton/>}>
-          {/* <LatestInvoices/> */}
-        </Suspense>
-      </div>
     </main>
   );
 }

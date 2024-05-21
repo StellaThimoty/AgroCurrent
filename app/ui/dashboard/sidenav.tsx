@@ -1,22 +1,17 @@
-import NavLinks from '@/app/ui/dashboard/nav-links';
+import NavLinks from './nav-links';
 import { PowerIcon } from '@heroicons/react/24/outline';
 import { signOut } from '@/auth';
 
 export default function SideNav() {
   return (
-    <div className="px-3 py-4 my-12">
-      <div className="flex flex-row">
-        <NavLinks />
-        <form action={async () => {
-          'use server';
-          await signOut();
-        }}>
-          <button className="flex h-[48px] mx-2 w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-lime-200 hover:text-green-600">
-            <PowerIcon className="w-6" />
-            <div className="hidden md:block">Sair</div>
-          </button>
-        </form>
-      </div>
-    </div>
+    <>
+    <NavLinks/>
+    <form action={async () => {
+      'use server';
+      await signOut({ redirectTo: "/", redirect: true});
+    }}>
+    <button className="flex bg-white text-black px-2 py-2 hover:bg-lime-200"><PowerIcon className="w-6 mx-1" />SAIR</button>
+    </form>    
+    </>
   );
 }

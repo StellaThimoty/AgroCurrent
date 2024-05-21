@@ -3,12 +3,12 @@ import Search from '@/app/ui/search';
 import Table from '@/app/ui/invoices/table';
 // import { CreateInvoice } from '@/app/ui/invoices/buttons';
 import { Suspense } from 'react';
-import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
-import { fetchInvoicesPages } from '@/app/lib/data';
+// import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
+// import { fetchInvoicesPages } from '@/app/lib/data';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Vistorias'
+  title: 'Relatórios'
 }
 
 export default async function Page({ searchParams }: { searchParams?: { query?: string; page?: string; } }) {
@@ -18,10 +18,10 @@ export default async function Page({ searchParams }: { searchParams?: { query?: 
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
-        <h1 className={`text-2xl`}>Vistorias</h1>
+        <h1 className={`text-2xl`}>Relatórios</h1>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-        <Search placeholder="Procurar vistorias..." />
+        <Search placeholder="Procurar relatórios..." />
         {/* <CreateInvoice /> */}
       </div>
       {/* <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>

@@ -1,24 +1,24 @@
 import SideNav from '@/app/ui/dashboard/sidenav';
 import Link from 'next/link';
-import JohnLogo from '../ui/john-logo';
+import Image from 'next/image';
  
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="flex items-center justify-center">
-      <div className="relative mx-auto flex w-full flex-col p-4">
-        <div className="flex w-full items-end rounded-lg bg-green-600 p-3">      
-        <Link
-        className="mb-2 flex items-end justify-start rounded-md bg-green-600 p-4 md:h-40"
-        href="/"
-        >
-        <div className="text-white">
-            <JohnLogo />
+  <body>
+    <div className="bg-green-700 text-white p-2 flex items-center">
+      <Link href='/'>
+        <Image src="/AGROENOIS2.jpg" alt="logo" className="mr-2" width={65} height={65}/>      
+      </Link>
+        <div className="flex flex-col">
+          <h1 className="font-bold text-xl">Formulário de vistoria</h1>
         </div>
-        </Link>
-        <SideNav/>
-        </div>
-        <div className="flex-grow p-6 md:overflow-y-auto md:p-12">{children}</div>
       </div>
-    </main>
+      <div className="bg-green-800 text-white flex justify-between items-center p-2">
+        <div className="flex space-x-2">
+          <SideNav/>
+        </div>
+      </div>
+      <div className="flex p-6 items-center space-x-2">{children}</div>
+  </body>
   );
 }

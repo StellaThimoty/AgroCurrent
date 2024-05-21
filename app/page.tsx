@@ -1,32 +1,37 @@
-import JohnLogo from '@/app/ui/john-logo';
-import { lusitana } from './ui/fonts';
 import { ArrowRightIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import Image from 'next/image'
-
+// NÃO PASSAR O COMPONENTE BASE LAYOUT 
+// FICA BUGADO E MUITO FEIO
+// DEIXA DO JEITO QUE ESTÁ
+// ALÉM DE QUE NÃO TEM CHILDREN NESTE COMPONENTE PARA PASSAR
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col p-6">
-      <div className="flex h-20 shrink-0 items-end rounded-lg bg-green-500 p-4 md:h-52">
-        <JohnLogo />
+    <body style={{backgroundImage: `linear-gradient(rgba(60, 179, 113, 0.5), rgba(60, 179, 113, 0.5)), url('/bg.webp')`, backgroundPosition: "center"}}>
+      <div className="bg-green-700 text-white p-2 flex items-center">
+        <Link href='/'>
+          <Image src="/AGROENOIS2.jpg" alt="logo" className="mr-2" width={65} height={65}/>      
+        </Link>
+          <div className="flex flex-col">
+            <h1 className="font-bold text-xl">Formulário de vistoria - Fatec John Deere</h1>
+          </div>
       </div>
-      <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
-        <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
-          <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal ${lusitana.className} antialiased`}>
-            <strong>Seja bem vindo(a).</strong> Esta é uma plataforma de vistoria para máquinas, feita pela Fatec.
-          </p>
-          <Link href="/login" className="flex items-center gap-5 self-start rounded-lg bg-green-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-green-400 md:text-base">
-            <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
-          </Link>
-          <Link href="/signup" className="flex items-center gap-5 self-start rounded-lg bg-green-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-green-400 md:text-base">
-            <span>Cadastrar usuário</span> <PlusCircleIcon className="w-5 md:w-6" />
-          </Link>
-        </div>
-        <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
-          {/* Add Hero Images Here */}
+      <div className="flex p-6 items-center space-x-2">
+        <div className="flex grow flex-row">
+          <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-20 py-10">
+            <h1 className='text-3xl antialised'><strong>Seja bem vindo(a).</strong><br/> Esta é uma plataforma de vistoria para máquinas, feita pela Fatec.</h1>
+            <Link href="/login" className="flex">
+              <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-lime-200">Log in <ArrowRightIcon className="w-6 mx-1" /></button>
+            </Link>
+            <Link href="/signup" className="flex">
+              <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-lime-200">Cadastrar usuário <PlusCircleIcon className="w-6 mx-1" /></button>
+            </Link>
+          </div>
+          <div className="flex items-center justify-center p-6">
           <Image src="/7215j.webp" width={1064} height={760} alt='Máquina Agricola 7215J'/>
+          </div>
         </div>
       </div>
-    </main>
+    </body>
   );
 }

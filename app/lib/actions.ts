@@ -64,9 +64,9 @@ export async function authenticate(prevState: string | undefined, formData: Form
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':
-          return 'Invalid credentials';      
+          return 'Credenciais inválidas. Corrija e tente novamente.';      
         default:
-          return 'Something went wrong';
+          return 'Algo deu errado. Aguarde e tente novamente.';
       }
     }
     throw error
@@ -91,14 +91,19 @@ export async function createUser(prevState: UserState, formData: FormData) {
 
   const { name, email, password, category } = validatedFields.data
   try {
-
+    const dupl = await sql`SELECT * FROM users WHERE email LIKE ${email}`
+    if (dupl.rowCount > 0)
+      return {
+        errors: "Usuário já cadastrado",
+        message: "Apenas um e-mail por usuário é permitido"
+    }
     const hashedPassword = await hash(password, 10);
     await sql`
   INSERT INTO users (name, email, password, category)
-  VALUES (${name}, ${email}, ${hashedPassword}, ${category})
-`;
+  VALUES (${name}, ${email}, ${hashedPassword}, ${category})`;
   } catch (error) {
     return {
+      errors: "Erro",
       message: 'Database Error: Falha em criar usuário'
     }
   }
