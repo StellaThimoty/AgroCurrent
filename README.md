@@ -1,5 +1,9 @@
-## Next.js App Router Course - Starter
+## Projeto Fatec PI
 
-This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
+Este é um projeto integrador para o 4o semestre da Fatec feito pelos alunos:
 
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+* Abner 
+* Guilherme Moreno
+* Henrique
+* Murilo
+* Sara
