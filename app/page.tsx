@@ -13,7 +13,7 @@ export default function Page() {
           <Image src="/AGROENOIS2.jpg" alt="logo" className="mr-2" width={65} height={65}/>      
         </Link>
           <div className="flex flex-col">
-            <h1 className="font-bold text-xl">Formulário de vistoria - Fatec John Deere</h1>
+            <h1 className="font-bold text-xl">Formulário de vistoria - Agro Current</h1>
           </div>
       </div>
       <div className="flex p-6 items-center space-x-2">
