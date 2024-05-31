@@ -1,0 +1,12 @@
+POSTGRES_URL="postgres://default:U8sw6XrGaIkl@ep-delicate-snow-a4cmdru1-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
+POSTGRES_PRISMA_URL="postgres://default:U8sw6XrGaIkl@ep-delicate-snow-a4cmdru1-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15"
+POSTGRES_URL_NO_SSL="postgres://default:U8sw6XrGaIkl@ep-delicate-snow-a4cmdru1-pooler.us-east-1.aws.neon.tech:5432/verceldb"
+POSTGRES_URL_NON_POOLING="postgres://default:U8sw6XrGaIkl@ep-delicate-snow-a4cmdru1.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
+POSTGRES_USER="default"
+POSTGRES_HOST="ep-delicate-snow-a4cmdru1-pooler.us-east-1.aws.neon.tech"
+POSTGRES_PASSWORD="U8sw6XrGaIkl"
+POSTGRES_DATABASE="verceldb"
+
+# `openssl rand -base64 32`
+AUTH_SECRET="ecKapSHVn685m38AwIc6E6sX6mLWhdOFtq2XrTyE5Tk="
+# AUTH_URL=http://localhost:3000/api/auth
