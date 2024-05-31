@@ -18,6 +18,13 @@ export default async function Page({ params }: { params: { id: string } }) {
   const [invoice, customers] = await Promise.all([
     fetchInvoiceById(id),
     fetchCustomers(),
+    //const relatorios = await fetch('http://localhost:3001')
+
+// etc
+
+//{relatorios.map((relatorio) => (<CarouselItem>{relatorio}</CarouselItem>
+
+///))}
   ]);
   if (!invoice){
     notFound();
@@ -30,6 +37,8 @@ export default async function Page({ params }: { params: { id: string } }) {
     <CarouselItem className="pl-2 md:pl-4">...</CarouselItem>
     <CarouselItem className="pl-2 md:pl-4">...</CarouselItem>
   </CarouselContent>
+  <CarouselPrevious />
+  <CarouselNext />
 </Carousel>
 
       <Form invoice={invoice} customers={customers} />
