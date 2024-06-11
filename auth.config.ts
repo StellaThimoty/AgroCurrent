@@ -1,7 +1,7 @@
 import type { NextAuthConfig } from 'next-auth';
  
 export const authConfig = {
-  secret: process.env.AUTH_SECRET,
+  secret: "WK3dYMJIbruyjQ9pwkN+bnaNVCnf/TXXtlgPt8BWLl8=",
   pages: {
     signIn: '/login',
     signOut: '/'
