@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {AtSymbolIcon,KeyIcon,TagIcon,PlusCircleIcon,UserIcon} from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { Button } from '../../ui/button';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import { register } from '@/hooks/slices/authSlice';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 export default function SignupForm() {
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")

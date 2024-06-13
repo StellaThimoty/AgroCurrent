@@ -11,6 +11,11 @@ import { Provider } from 'react-redux'
 import store from "./hooks/store"
 import Dashboard from './routes/Dashboard'
 import Home from './routes/Home'
+import Relatorios from './routes/SubDashboard/Relatorios/Relatorios';
+import Vistorias from './routes/SubDashboard/Vistorias/Vistorias';
+import Maquinas from './routes/SubDashboard/Maquinas/Maquinas';
+import Eddy from './routes/SubDashboard/Eddy/Eddy';
+import Ajuda from './routes/SubDashboard/Ajuda';
 
 const router = createBrowserRouter([
   {
@@ -35,18 +40,23 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'eddy',
+        element: <Eddy/>
       },
       {
         path: 'maquinas',
+        element: <Maquinas/>
       },
       {
         path: 'vistorias',
+        element: <Vistorias/>
       },
       {
         path: 'relatorios',
+        element: <Relatorios/>
       },
       {
         path: 'ajuda',
+        element: <Ajuda/>
       },
     ]
   }

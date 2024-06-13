@@ -27,18 +27,6 @@ export type AuthApiState = {
   error: string | null;
 };
 
-const NotificationType = {
-  Success: "success",
-  Error: "error",
-  Warning: "warning",
-  Info: "info"
-} as const
-export type NotificationType = typeof NotificationType[keyof typeof NotificationType]
-
-export type Notification = {
-  open: boolean,
-  message: string,
-  type: NotificationType
+export type ApiErrorType = {
+  error: string
 }
-
-export type ShowNotification = Omit<Notification, "open">

@@ -1,4 +1,4 @@
-import Search from '@/app/ui/search';
+// import Search from '@/app/ui/search';
 
 export default function Ajuda() {
   return (

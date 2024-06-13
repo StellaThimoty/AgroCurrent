@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
 import { toast } from 'react-toastify'
-import { User, AuthApiState, NewUser } from "@/lib/types";
+import { User, AuthApiState, NewUser, ApiErrorType } from "@/lib/types";
 import { AxiosError } from "axios";
 
 const initialState: AuthApiState = {
@@ -84,7 +84,7 @@ const authSlice = createSlice({
       if (action.payload) {
         // NÃO É ERRO
         // ISSO AQUI É DEFINIDO EM RUNTIME
-        state.error = action.payload.error || "Erro ao logar!"
+        state.error = (action.payload as ApiErrorType).error || "Erro ao logar!"
         toast.error(state.error)
       }
     })
@@ -106,7 +106,7 @@ const authSlice = createSlice({
       if(action.payload) {
         // NÃO É ERRO
         // ISSO AQUI É DEFINIDO EM RUNTIME
-        state.error = action.payload.error || "Falha no Cadastro"
+        state.error = (action.payload as ApiErrorType).error || "Falha no Cadastro"
         toast.error(state.error)
       }
     })
@@ -127,6 +127,8 @@ const authSlice = createSlice({
       toast.dismiss()
       toast.error("Erro ao sair!")
       state.status = "failed";
+      //Sem wrapper porque o único erro de logout é referente a token e como o post não envia um corpo
+      //Não temos como passar um wrapper, a mensagem de erro já é suficiente
       state.error = action.error.message || "Logout failed";
     })
   },
