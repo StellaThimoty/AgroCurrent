@@ -16,7 +16,7 @@ export default function LoginForm() {
 
       try {
         await dispatch(login({email, password})).unwrap()
-        navigate("/dashboard")
+        navigate("/Dashboard")
       } catch(e) {
         console.error(e)
       }

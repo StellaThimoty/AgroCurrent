@@ -16,6 +16,7 @@ import Vistorias from './routes/SubDashboard/Vistorias/Vistorias';
 import Maquinas from './routes/SubDashboard/Maquinas/Maquinas';
 import Eddy from './routes/SubDashboard/Eddy/Eddy';
 import Ajuda from './routes/SubDashboard/Ajuda';
+import Usuario from './routes/SubDashboard/Usuario/Usuario';
 
 const router = createHashRouter([
   {
@@ -24,43 +25,47 @@ const router = createHashRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/signup",
+    path: "/Signup",
     element: <SignupPage/>,
     errorElement: <ErrorPage />
   },
   {
-    path: "/login",
+    path: "/Login",
     element: <LoginPage/>,
     errorElement: <ErrorPage />
   },
   {
-    path: "/dashboard",
+    path: "/Dashboard",
     element: <Dashboard/>,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: 'eddy',
+        path: '',
+        element: <Usuario/>
+      },
+      {
+        path: 'Eddy',
         element: <Eddy/>
       },
       {
-        path: 'maquinas',
+        path: 'Maquinas',
         element: <Maquinas/>
       },
       {
-        path: 'vistorias',
+        path: 'Vistorias',
         element: <Vistorias/>
       },
       {
-        path: 'relatorios',
+        path: 'Relatorios',
         element: <Relatorios/>
       },
       {
-        path: 'ajuda',
+        path: 'Ajuda',
         element: <Ajuda/>
       },
     ]
   }
-], {basename: "/AgroCurrent"})
+])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

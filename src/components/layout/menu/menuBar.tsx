@@ -20,7 +20,7 @@ export default function MenuBar() {
   return (
     <>
     <MenuItem/>
-    <Button className="flex bg-white text-black px-2 py-2 hover:bg-lime-200" onClick={handleLogout} key={"logout"}><PowerIcon className="w-6 mx-1" />SAIR</Button>   
+    <Button className="flex select-none bg-white text-black px-2 py-2 hover:bg-lime-200" onClick={handleLogout} key={"logout"}><PowerIcon className="w-6 mx-1" />SAIR</Button>   
     </>
   );
 }
