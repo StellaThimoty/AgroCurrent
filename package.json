@@ -2,7 +2,7 @@
   "name": "agro-current",
   "private": true,
   "version": "0.9.0",
-  "homepage": "https://StellaThimoty.github.io/AgroCurrent/",
+  "homepage": "https://stellathimoty.github.io/AgroCurrent",
   "type": "module",
   "scripts": {
     "predeploy": "pnpm run build",

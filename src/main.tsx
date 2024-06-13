@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import 'react-toastify/dist/ReactToastify.min.css';
 import {ToastContainer} from 'react-toastify'
@@ -17,7 +17,7 @@ import Maquinas from './routes/SubDashboard/Maquinas/Maquinas';
 import Eddy from './routes/SubDashboard/Eddy/Eddy';
 import Ajuda from './routes/SubDashboard/Ajuda';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <Home />,
