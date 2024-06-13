@@ -60,7 +60,7 @@ const router = createHashRouter([
       },
     ]
   }
-])
+], {basename: "/AgroCurrent"})
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
