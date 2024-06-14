@@ -1,6 +1,11 @@
 // import Search from '@/app/ui/search';
+import { useEffect } from "react"
 
 export default function Ajuda() {
+  useEffect(() => {
+    document.title = "Agro Current - Ajuda"
+  }, [])
+
   return (
     <>
     <div className="w-full">

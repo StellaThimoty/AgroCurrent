@@ -1,6 +1,11 @@
 // import Search from '@/app/ui/search';
 
+import { useEffect } from "react"
+
 export default function Usuario() {
+  useEffect(() => {
+    document.title = "Agro Current - Usuário"
+  }, [])
   return (
     <>
     <div className="w-full">

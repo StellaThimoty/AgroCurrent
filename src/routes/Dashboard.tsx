@@ -6,8 +6,11 @@ import { Outlet, useNavigate } from 'react-router-dom'
 export default function Dashboard() {
   const user = useAppSelector((state) => state.auth.userInfo)
   const navigate = useNavigate()
+  const cargo = document.cookie.split("; ").filter(row => row.startsWith('category=')).map(cookie => cookie.split('=')[1])[0]
+  const name = decodeURI(document.cookie.split("; ").filter(row => row.startsWith('name=')).map(cookie => cookie.split('=')[1])[0])
 
   useEffect(() => {
+    document.title = "Agro Current - Dashboard"
     if(!user) {
       navigate("/")
     }
@@ -15,7 +18,7 @@ export default function Dashboard() {
 
     return (    
       <>
-        <HeaderDash pagename="Usuário">
+        <HeaderDash pagename={`${name} - ${cargo}`} >
           <Outlet />
         </HeaderDash>
       </>)

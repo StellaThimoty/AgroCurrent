@@ -1,6 +1,11 @@
 // import Search from '@/app/ui/search';
 
+import { useEffect } from "react"
+
 export default function Maquinas() {
+  useEffect(() => {
+    document.title = "Agro Current - Sensor"
+  }, [])
   return (
     <>
     <div className="w-full">

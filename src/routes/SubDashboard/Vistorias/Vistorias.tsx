@@ -1,6 +1,11 @@
 // import Search from '@/app/ui/search';
 
+import { useEffect } from "react"
+
 export default function Vistorias() {
+  useEffect(() => {
+    document.title = "Agro Current - Vistoria"
+  }, [])
   return (
     <>
     <div className="w-full">
