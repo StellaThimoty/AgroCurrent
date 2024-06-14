@@ -43,8 +43,7 @@ export const register = createAsyncThunk("register", async (data: {name: string,
   }
 })
 
-// eslint-disable-next-line no-empty-pattern
-export const logout = createAsyncThunk("logout", async () => {
+export const logout = createAsyncThunk("logout", async (_, {rejectWithValue}) => {
   try {
     const res = await axiosInstance.post("/auth/logout")
     const resData = res.data
@@ -55,7 +54,7 @@ export const logout = createAsyncThunk("logout", async () => {
     if (error instanceof AxiosError && error.response) {
       const errorResponse = error.response.data
 
-      return errorResponse
+      return rejectWithValue(errorResponse)
     }
   }
 })

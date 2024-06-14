@@ -14,7 +14,7 @@ import Home from './routes/Home'
 import Relatorios from './routes/SubDashboard/Relatorios/Relatorios';
 import Vistorias from './routes/SubDashboard/Vistorias/Vistorias';
 import Maquinas from './routes/SubDashboard/Maquinas/Maquinas';
-import Eddy from './routes/SubDashboard/Eddy/Eddy';
+import Sensor from './routes/SubDashboard/Sensor/Sensor';
 import Ajuda from './routes/SubDashboard/Ajuda';
 import Usuario from './routes/SubDashboard/Usuario/Usuario';
 
@@ -44,8 +44,8 @@ const router = createHashRouter([
         element: <Usuario/>
       },
       {
-        path: 'Eddy',
-        element: <Eddy/>
+        path: 'Sensor',
+        element: <Sensor/>
       },
       {
         path: 'Maquinas',
