@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk,
   //  PayloadAction 
   } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
-import { toast } from 'react-toastify'
 import { AuthApiState, ApiErrorType, Departure, DepartureUpdate
   // , Departure 
 } from "@/lib/types";
@@ -96,104 +95,59 @@ const departureSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-    .addCase(storeDeparture.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(storeDeparture.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(storeDeparture.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Chegada encontrada!")
-      state.status = "idle"
+    .addCase(storeDeparture.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(storeDeparture.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(storeDeparture.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
 
-    .addCase(getDepartureAll.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(getDepartureAll.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(getDepartureAll.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Chegada encontrada!")
-      state.status = "idle"
+    .addCase(getDepartureAll.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(getDepartureAll.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(getDepartureAll.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
 
-    .addCase(getDepartureById.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(getDepartureById.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(getDepartureById.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Saída encontrada!")
-      state.status = "idle"
+    .addCase(getDepartureById.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(getDepartureById.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(getDepartureById.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
 
-    .addCase(updateDeparture.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(updateDeparture.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(updateDeparture.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Saída atualizada!")
-      state.status = "idle"
+    .addCase(updateDeparture.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(updateDeparture.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(updateDeparture.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Atualizar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Atualizar!"      }
     })
 
-    .addCase(deleteDeparture.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(deleteDeparture.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(deleteDeparture.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Saída deletada!")
-      state.status = "idle"
+    .addCase(deleteDeparture.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(deleteDeparture.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(deleteDeparture.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
   },
 });

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
-import { toast } from 'react-toastify'
 import { AuthApiState, ApiErrorType, Report } from "@/lib/types";
 import { AxiosError } from "axios";
 
@@ -76,84 +75,48 @@ const reportSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-    .addCase(storeReport.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(storeReport.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(storeReport.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Relatório criado!")
-      state.status = "idle"
+    .addCase(storeReport.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(storeReport.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(storeReport.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
 
-    .addCase(getReportAll.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(getReportAll.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(getReportAll.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Relatório encontrado!")
-      state.status = "idle"
+    .addCase(getReportAll.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(getReportAll.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(getReportAll.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
 
-    .addCase(getReportById.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(getReportById.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(getReportById.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Relatório encontrado!")
-      state.status = "idle"
+    .addCase(getReportById.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(getReportById.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(getReportById.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
 
-    .addCase(deleteReport.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(deleteReport.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(deleteReport.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Relatório deletado!")
-      state.status = "idle"
+    .addCase(deleteReport.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(deleteReport.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(deleteReport.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
   },
 });

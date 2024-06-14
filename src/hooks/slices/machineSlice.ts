@@ -1,16 +1,19 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
-import { toast } from 'react-toastify'
-import { AuthApiState, ApiErrorType, Machine } from "@/lib/types";
+import { ApiErrorType, Machine, MachineState, NewMachine } from "@/lib/types";
 import { AxiosError } from "axios";
 
-const initialState: AuthApiState = {
-  userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string) : null,
+const initialState: MachineState = {
+  // userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string) : null,
+  machine: {
+    name: "",
+    type: "",
+  },
   status: "idle",
   error: null,
 }
 
-export const storeMachine = createAsyncThunk("store", async (data: Machine,{ rejectWithValue }) => {
+export const storeMachine = createAsyncThunk("store", async (data: NewMachine,{ rejectWithValue }) => {
   try {
     const res = await axiosInstance.post("/machine/", data)
     const resData = res.data
@@ -93,103 +96,62 @@ const machineSlice = createSlice({
   extraReducers: (builder) => {
     builder
     .addCase(storeMachine.pending, (state) =>{
-      toast.loading("Carregando...")
       state.status = "loading"
       state.error = null
     })
-    .addCase(storeMachine.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Máquina criada!")
+    .addCase(storeMachine.fulfilled, (state, action: PayloadAction<NewMachine>) =>{
       state.status = "idle"
-      return action.payload
+      state.machine = action.payload
     })
     .addCase(storeMachine.rejected, (state, action) =>{
-      toast.dismiss()
       state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Criar!"
       }
     })
 
-    .addCase(getMachineAll.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(getMachineAll.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(getMachineAll.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Máquina encontrada!")
-      state.status = "idle"
+    .addCase(getMachineAll.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(getMachineAll.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(getMachineAll.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
 
-    .addCase(getMachineById.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(getMachineById.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(getMachineById.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Máquina encontrada!")
-      state.status = "idle"
+    .addCase(getMachineById.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(getMachineById.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(getMachineById.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
 
-    .addCase(updateMachine.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(updateMachine.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(updateMachine.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Máquina atualizada!")
-      state.status = "idle"
+    .addCase(updateMachine.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(updateMachine.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(updateMachine.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Atualizar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Atualizar!"      }
     })
 
-    .addCase(deleteMachine.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(deleteMachine.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(deleteMachine.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Máquina deletada!")
-      state.status = "idle"
+    .addCase(deleteMachine.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(deleteMachine.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(deleteMachine.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Deletar!"      }
     })
   },
 });

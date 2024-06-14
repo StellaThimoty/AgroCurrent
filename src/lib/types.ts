@@ -49,6 +49,12 @@ export type Machine = {
   type: string;
 }
 
+export type MachineState = AuthApiState & {
+  machine: NewMachine
+}
+
+export type NewMachine = Omit<Machine, "id">
+
 export type Report = {
   arrivalId: number;
 }

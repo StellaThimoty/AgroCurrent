@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk,
   //  PayloadAction 
   } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
-import { toast } from 'react-toastify'
 import { AuthApiState, ApiErrorType
   // , Arrival 
 } from "@/lib/types";
@@ -82,84 +81,48 @@ const arrivalSlice = createSlice({
   extraReducers: (builder) => {
     builder
     // getAll
-    .addCase(getArrivalAll.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(getArrivalAll.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(getArrivalAll.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Chegada encontrada!")
-      state.status = "idle"
+    .addCase(getArrivalAll.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(getArrivalAll.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(getArrivalAll.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
 
-    .addCase(getArrivalById.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(getArrivalById.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(getArrivalById.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Chegada encontrada!")
-      state.status = "idle"
+    .addCase(getArrivalById.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(getArrivalById.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(getArrivalById.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
 
-    .addCase(updateArrival.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(updateArrival.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(updateArrival.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Chegada atualizada!")
-      state.status = "idle"
+    .addCase(updateArrival.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(updateArrival.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(updateArrival.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Atualizar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Atualizar!"      }
     })
 
-    .addCase(deleteArrival.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(deleteArrival.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(deleteArrival.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Chegada deletada!")
-      state.status = "idle"
+    .addCase(deleteArrival.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(deleteArrival.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(deleteArrival.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
   },
 });

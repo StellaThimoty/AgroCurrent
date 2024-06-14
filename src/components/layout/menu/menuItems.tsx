@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 
 const links = [
   { name: 'USUÁRIO', href: "", icon: UserGroupIcon },
-  { name: 'EDDY', href: "Eddy", icon: BoltIcon },
+  { name: 'SENSOR', href: "Sensor", icon: BoltIcon },
   { name: 'MÁQUINAS', href: "Maquinas", icon: WrenchScrewdriverIcon},
   { name: 'VISTORIAS', href: "Vistorias", icon: UserGroupIcon},
   { name: 'RELATÓRIOS', href: "Relatorios", icon: DocumentDuplicateIcon},

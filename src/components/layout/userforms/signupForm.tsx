@@ -1,8 +1,10 @@
-import {AtSymbolIcon,KeyIcon,TagIcon,PlusCircleIcon,UserIcon} from '@heroicons/react/24/outline';
+import {AtSymbolIcon,KeyIcon,TagIcon,PlusCircleIcon,UserIcon, ArrowLeftCircleIcon} from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { Button } from '../../ui/button';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import { register } from '@/hooks/slices/authSlice';
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 
 export default function SignupForm() {
@@ -14,7 +16,8 @@ export default function SignupForm() {
   const [passwordConfirm, setPasswordConfirm] = useState("")
   const [category, setCategory] = useState("")
 
-  const handleSignup = async () => {
+  async function handleSignup()
+    {if(password == passwordConfirm) {
       try {
         await dispatch(register({name, email, password, category})).unwrap()
         // await dispatch(login({email, password})).unwrap()
@@ -22,7 +25,9 @@ export default function SignupForm() {
       } catch(e) {
         console.error(e)
       }
-    }
+    } else {
+      toast.error("Senhas não são iguais!")
+    }}
 
   return (
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
@@ -105,21 +110,30 @@ export default function SignupForm() {
               <select className="peer block w-80 rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="category"
                 name="category"
+
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 required>
-                <option value="Administrador">Administrador</option>
+                <option value="">Escolha uma categoria</option>
                 <option value="Consultor">Consultor</option>
                 <option value="Registrador">Registrador</option>
+                <option value="Administrador">Administrador</option>
               </select>
               <TagIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 mx-1 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>
-        <Button type="submit" className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 hover:bg-lime-200" onClick={handleSignup}>
-          Cadastrar <PlusCircleIcon className="w-6 mx-1" />
-        </Button>
+        <div className='flex'>
+          <Link to="/Dashboard">
+            <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 mr-3 hover:bg-lime-200">
+              Voltar <ArrowLeftCircleIcon className="w-6 mx-1" />
+            </Button>
+          </Link>
+          <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 ml-3 hover:bg-lime-200" onClick={handleSignup}>
+            Cadastrar <PlusCircleIcon className="w-6 mx-1" />
+          </Button>
+        </div>
       </div>
       </div>
-  );
-}
+  )
+  }

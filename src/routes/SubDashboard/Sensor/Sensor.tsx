@@ -18,7 +18,7 @@ export default function Sensor() {
       {/* <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
         <Table query={query} currentPage={currentPage} />
       </Suspense> */}
-      <div className="mt-5 flex w-full justify-center">
+      <div className="mt-5 flex w-full justify-left">
         {/* <Pagination totalPages={totalPages} /> */}
       </div>
     </div>

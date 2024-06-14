@@ -1,7 +1,7 @@
 import HeaderDash from '@/components/layout/header/headerDash'
 import { useAppSelector } from '@/hooks/reduxHooks'
 import { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate, useOutletContext } from 'react-router-dom'
 
 export default function Dashboard() {
   const user = useAppSelector((state) => state.auth.userInfo)
@@ -19,7 +19,11 @@ export default function Dashboard() {
     return (    
       <>
         <HeaderDash pagename={`${name} - ${cargo}`} >
-          <Outlet />
+          <Outlet context={[cargo, name]}/>
         </HeaderDash>
       </>)
+}
+
+export function useUser() {
+  return useOutletContext<string>();
 }

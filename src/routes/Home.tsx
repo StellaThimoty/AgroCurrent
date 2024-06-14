@@ -19,9 +19,9 @@ export default function Home() {
             <Link to="/Login" className="flex">
               <Button className="flex select-none text-black bg-yellow-500 px-2 py-2 hover:bg-lime-200">Log in <ArrowRightIcon className="w-6 mx-1" /></Button>
             </Link>
-            <Link to="/Signup" className="flex">
+            {/* <Link to="/Signup" className="flex">
               <Button className="flex select-none text-black bg-yellow-500 px-2 py-2 hover:bg-lime-200">Cadastrar usuário <PlusCircleIcon className="w-6 mx-1" /></Button>
-            </Link>
+            </Link> */}
           </div>
           <div className="flex items-center justify-center p-6">
             <img src={makina} width={1064} height={760} alt='Máquina Agricola 7215J'/>

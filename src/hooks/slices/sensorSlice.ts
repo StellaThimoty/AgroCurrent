@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
-import { toast } from 'react-toastify'
 import { AuthApiState, ApiErrorType, Sensor } from "@/lib/types";
 import { AxiosError } from "axios";
 
@@ -76,64 +75,37 @@ const sensorSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-    .addCase(storeSensor.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(storeSensor.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(storeSensor.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Máquina criada!")
-      state.status = "idle"
+    .addCase(storeSensor.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(storeSensor.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(storeSensor.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
 
-    .addCase(getSensorById.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(getSensorById.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(getSensorById.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Máquina encontrada!")
-      state.status = "idle"
+    .addCase(getSensorById.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(getSensorById.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(getSensorById.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
 
-    .addCase(deleteSensor.pending, (state) =>{
-      toast.loading("Carregando...")
-      state.status = "loading"
+    .addCase(deleteSensor.pending, (state) =>{      state.status = "loading"
       state.error = null
     })
-    .addCase(deleteSensor.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Máquina deletada!")
-      state.status = "idle"
+    .addCase(deleteSensor.fulfilled, (state, action) =>{      state.status = "idle"
       return action.payload
     })
-    .addCase(deleteSensor.rejected, (state, action) =>{
-      toast.dismiss()
-      state.status = "failed"
+    .addCase(deleteSensor.rejected, (state, action) =>{      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"
-        toast.error(state.error)
-      }
+        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
     })
   },
 });
