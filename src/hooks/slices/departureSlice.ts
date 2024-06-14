@@ -16,7 +16,7 @@ const initialState: AuthApiState = {
 
 export const storeDeparture = createAsyncThunk("storeDeparture", async (data: Departure,{ rejectWithValue }) => {
   try {
-    const res = await axiosInstance.post("/departure/", data)
+    const res = await axiosInstance.post("/departure", data)
     const resData = res.data
 
     return resData
@@ -31,7 +31,7 @@ export const storeDeparture = createAsyncThunk("storeDeparture", async (data: De
 
 export const getDepartureAll = createAsyncThunk("getDepartureAll", async (_,{ rejectWithValue }) => {
   try {
-    const res = await axiosInstance.get("/departure/")
+    const res = await axiosInstance.get("/departure")
     const resData = res.data
 
     return resData
@@ -46,7 +46,7 @@ export const getDepartureAll = createAsyncThunk("getDepartureAll", async (_,{ re
 
 export const getDepartureById = createAsyncThunk("getDepartureById", async (id:number, { rejectWithValue }) => {
   try {
-    const res = await axiosInstance.get(`/departure/id?${id}`)
+    const res = await axiosInstance.get(`/departure/${id}`)
     const resData = res.data
 
     return resData
@@ -61,7 +61,7 @@ export const getDepartureById = createAsyncThunk("getDepartureById", async (id:n
 
 export const updateDeparture = createAsyncThunk("updateDeparture",async (data:DepartureUpdate, { rejectWithValue }) => {
   try {
-    const res = await axiosInstance.put(`/departure/id?${data.id}`, data)
+    const res = await axiosInstance.put(`/departure/${data.id}`, data)
     const resData = res.data
     localStorage.setItem("userInfo", JSON.stringify(resData))
     return resData
@@ -77,7 +77,7 @@ export const updateDeparture = createAsyncThunk("updateDeparture",async (data:De
 
 export const deleteDeparture = createAsyncThunk("deleteDeparture", async(id:number) => {
   try {
-    const res = await axiosInstance.delete(`/departure/id?${id}`)
+    const res = await axiosInstance.delete(`/departure/${id}`)
     const resData = res.data
 
     return resData

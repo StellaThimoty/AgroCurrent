@@ -46,7 +46,7 @@ export const getMachineAll = createAsyncThunk("getMachineAll", async (_,{ reject
 
 export const getMachineById = createAsyncThunk("getMachineById", async (id:number, { rejectWithValue }) => {
   try {
-    const res = await axiosInstance.get(`/machine/id?${id}`)
+    const res = await axiosInstance.get(`/machine/${id}`)
     const resData = res.data
 
     return resData
@@ -61,7 +61,7 @@ export const getMachineById = createAsyncThunk("getMachineById", async (id:numbe
 
 export const updateMachine = createAsyncThunk("updateMachine",async (data:Machine, { rejectWithValue }) => {
   try {
-    const res = await axiosInstance.put(`/machine/id?${data.id}`, data)
+    const res = await axiosInstance.put(`/machine/${data.id}`, data)
     const resData = res.data
     localStorage.setItem("userInfo", JSON.stringify(resData))
     return resData
@@ -77,7 +77,7 @@ export const updateMachine = createAsyncThunk("updateMachine",async (data:Machin
 
 export const deleteMachine = createAsyncThunk("deleteMachine", async(id:number) => {
   try {
-    const res = await axiosInstance.delete(`/machine/id?${id}`)
+    const res = await axiosInstance.delete(`/machine/${id}`)
     const resData = res.data
 
     return resData
@@ -124,7 +124,7 @@ const machineSlice = createSlice({
       toast.dismiss()
       toast.success("Máquina encontrada!")
       state.status = "idle"
-      return action.payload
+      state.machine = action.payload
     })
     .addCase(getMachineAll.rejected, (state, action) =>{
       toast.dismiss()
@@ -144,7 +144,7 @@ const machineSlice = createSlice({
       toast.dismiss()
       toast.success("Máquina encontrada!")
       state.status = "idle"
-      return action.payload
+      state.machine = action.payload
     })
     .addCase(getMachineById.rejected, (state, action) =>{
       toast.dismiss()
@@ -164,7 +164,7 @@ const machineSlice = createSlice({
       toast.dismiss()
       toast.success("Máquina atualizada!")
       state.status = "idle"
-      return action.payload
+      state.machine = action.payload
     })
     .addCase(updateMachine.rejected, (state, action) =>{
       toast.dismiss()
@@ -184,7 +184,7 @@ const machineSlice = createSlice({
       toast.dismiss()
       toast.success("Máquina deletada!")
       state.status = "idle"
-      return action.payload
+      state.machine = action.payload
     })
     .addCase(deleteMachine.rejected, (state, action) =>{
       toast.dismiss()

@@ -42,7 +42,7 @@ export const getSensorAll = createAsyncThunk("getSensorAll", async (_,{ rejectWi
 
 export const getSensorById = createAsyncThunk("getSensorById", async (id:number, { rejectWithValue }) => {
   try {
-    const res = await axiosInstance.get(`/sensor/id?${id}`)
+    const res = await axiosInstance.get(`/sensor/${id}`)
     const resData = res.data
 
     return resData
@@ -57,7 +57,7 @@ export const getSensorById = createAsyncThunk("getSensorById", async (id:number,
 
 export const deleteSensor = createAsyncThunk("deleteSensor", async(id:number) => {
   try {
-    const res = await axiosInstance.delete(`/sensor/id?${id}`)
+    const res = await axiosInstance.delete(`/sensor/${id}`)
     const resData = res.data
 
     return resData

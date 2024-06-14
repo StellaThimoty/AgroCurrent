@@ -12,7 +12,7 @@ const initialState: AuthApiState = {
 
 export const storeReport = createAsyncThunk("store", async (data: Report,{ rejectWithValue }) => {
   try {
-    const res = await axiosInstance.post("/report/", data)
+    const res = await axiosInstance.post("/report", data)
     const resData = res.data
 
     return resData
@@ -27,7 +27,7 @@ export const storeReport = createAsyncThunk("store", async (data: Report,{ rejec
 
 export const getReportAll = createAsyncThunk("getAll", async (_,{ rejectWithValue }) => {
   try {
-    const res = await axiosInstance.get("/report/")
+    const res = await axiosInstance.get("/report")
     const resData = res.data
 
     return resData
@@ -42,7 +42,7 @@ export const getReportAll = createAsyncThunk("getAll", async (_,{ rejectWithValu
 
 export const getReportById = createAsyncThunk("getById", async (id:number, { rejectWithValue }) => {
   try {
-    const res = await axiosInstance.get(`/report/id?${id}`)
+    const res = await axiosInstance.get(`/report/${id}`)
     const resData = res.data
 
     return resData
@@ -57,7 +57,7 @@ export const getReportById = createAsyncThunk("getById", async (id:number, { rej
 
 export const updateReport = createAsyncThunk("update",async (data:Report, { rejectWithValue }) => {
   try {
-    const res = await axiosInstance.put(`/report/id?${data.arrivalId}`, data)
+    const res = await axiosInstance.put(`/report/${data.arrivalId}`, data)
     const resData = res.data
     localStorage.setItem("userInfo", JSON.stringify(resData))
     return resData
@@ -73,7 +73,7 @@ export const updateReport = createAsyncThunk("update",async (data:Report, { reje
 
 export const deleteReport = createAsyncThunk("delete", async(id:number) => {
   try {
-    const res = await axiosInstance.delete(`/report/id?${id}`)
+    const res = await axiosInstance.delete(`/report/${id}`)
     const resData = res.data
 
     return resData

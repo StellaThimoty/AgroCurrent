@@ -31,7 +31,7 @@ export const getArrivalAll = createAsyncThunk("getArrivalAll", async (_,{ reject
 
 export const getArrivalById = createAsyncThunk("getArrivalById", async (id:number, { rejectWithValue }) => {
   try {
-    const res = await axiosInstance.get(`/arrival/id?${id}`)
+    const res = await axiosInstance.get(`/arrival/${id}`)
     const resData = res.data
 
     return resData
@@ -46,7 +46,7 @@ export const getArrivalById = createAsyncThunk("getArrivalById", async (id:numbe
 
 export const updateArrival = createAsyncThunk("updateArrival",async (data:{id: number, data: string}, { rejectWithValue }) => {
   try {
-    const res = await axiosInstance.put(`/arrival/id?${data.id}`, data)
+    const res = await axiosInstance.put(`/arrival/${data.id}`, data)
     const resData = res.data
     localStorage.setItem("userInfo", JSON.stringify(resData))
     return resData
@@ -62,7 +62,7 @@ export const updateArrival = createAsyncThunk("updateArrival",async (data:{id: n
 
 export const deleteArrival = createAsyncThunk("deleteArrival", async(id:number) => {
   try {
-    const res = await axiosInstance.delete(`/arrival/id?${id}`)
+    const res = await axiosInstance.delete(`/arrival/${id}`)
     const resData = res.data
 
     return resData

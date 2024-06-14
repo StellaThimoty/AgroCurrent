@@ -6,26 +6,40 @@ import {
   UserIcon
 } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
-
-function EditMachineButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <button type="submit" className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 hover:bg-lime-200" aria-disabled={pending}>
-      Editar <PlusCircleIcon className="w-6 mx-1" />
-    </button>
-  );
-}
+import { useAppDispatch } from '@/hooks/reduxHooks';
+import { useEffect, useState } from 'react';
+import { getMachineById, updateMachine } from '@/hooks/slices/machineSlice';
+import { Machine } from '@/lib/types';
+import { useParams } from 'react-router-dom';
 
 export default function EditMachineForm() {
   const dispatch = useAppDispatch()
+  const { id } = useParams()
+  const machineId = Number(id)
   // const navigate = useNavigate()
+  const [machine, setMachine] = useState<Machine>()
   const [name, setName] = useState("")
   const [type, setType] = useState("")
   
+  useEffect(() => {
+    async function getMachine() {
+      console.log(machineId)
+      const response = await dispatch(getMachineById(machineId)).unwrap()
+      console.log(machineId)
+      setMachine(response)
+    }
+
+    getMachine()
+  }, [])
+
   async function handleEdit() {
       try {
-        await dispatch(storeMachine({name, type})).unwrap()
+        const data = {
+          id: machineId,
+          name: name,
+          type: type,
+        }
+        await dispatch(updateMachine(data)).unwrap()
         // await dispatch(login({email, password})).unwrap()
         // navigate("/dashboard")
       } catch(e) {
@@ -49,7 +63,7 @@ export default function EditMachineForm() {
               type="text"
               name="name"
               placeholder="Coloque o nome"
-              value={name}
+              value={machine?.name}
               onChange={(e) => setName(e.target.value)}
               required
             />
@@ -62,7 +76,7 @@ export default function EditMachineForm() {
               <select className="peer block w-80 rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="type"
                 name="type"
-                value={type}
+                value={machine?.type}
                 onChange={(e) => setType(e.target.value)}
                 required>
                 <option value="">Escolha um tipo</option>
@@ -75,7 +89,7 @@ export default function EditMachineForm() {
           </div>
         </div>
         <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 hover:bg-lime-200" onClick={handleEdit}>
-          Cadastrar <PlusCircleIcon className="w-6 mx-1" />
+          Editar <PlusCircleIcon className="w-6 mx-1" />
         </Button>
         </div>
   );

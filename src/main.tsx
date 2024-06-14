@@ -17,6 +17,7 @@ import Maquinas from './routes/SubDashboard/Maquinas/Maquinas';
 import Sensor from './routes/SubDashboard/Sensor/Sensor';
 import Ajuda from './routes/SubDashboard/Ajuda';
 import Usuario from './routes/SubDashboard/Usuario/Usuario';
+import EditMachineForm from './components/layout/maquina/maquinaEditForm';
 
 const router = createHashRouter([
   {
@@ -40,7 +41,7 @@ const router = createHashRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '',
+        path: 'Home',
         element: <Usuario/>
       },
       {
@@ -49,7 +50,11 @@ const router = createHashRouter([
       },
       {
         path: 'Maquinas',
-        element: <Maquinas/>
+        element: <Maquinas/>,
+      },
+      {
+        path: 'Maquinas/:id',
+        element: <EditMachineForm/>
       },
       {
         path: 'Vistorias',

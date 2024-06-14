@@ -11,3 +11,10 @@ export function isAdm(cargo: string) {
   else
     return false
 }
+
+export function isReg(cargo: string) {
+  if(cargo == 'Registrador')
+    return true
+  else
+    return false
+}

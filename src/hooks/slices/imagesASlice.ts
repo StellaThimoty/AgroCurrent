@@ -12,7 +12,7 @@ const initialState: AuthApiState = {
 
 export const storeImagesArrival = createAsyncThunk("storeImagesArrival", async (data: ImagesArrival,{ rejectWithValue }) => {
   try {
-    const res = await axiosInstance.post(`/imagesArrival/id?${data.arrivalId}`, data)
+    const res = await axiosInstance.post(`/imagesArrival/${data.arrivalId}`, data)
     const resData = res.data
 
     return resData
@@ -27,7 +27,7 @@ export const storeImagesArrival = createAsyncThunk("storeImagesArrival", async (
 
 export const getImagesArrivalById = createAsyncThunk("getImagesArrivalById", async (id:number, { rejectWithValue }) => {
   try {
-    const res = await axiosInstance.get(`/imagesArrival/id?${id}`)
+    const res = await axiosInstance.get(`/imagesArrival/${id}`)
     const resData = res.data
 
     return resData
@@ -42,7 +42,7 @@ export const getImagesArrivalById = createAsyncThunk("getImagesArrivalById", asy
 
 export const deleteImagesArrival = createAsyncThunk("deleteImagesArrival", async(id:number) => {
   try {
-    const res = await axiosInstance.delete(`/imagesArrival/id?${id}`)
+    const res = await axiosInstance.delete(`/imagesArrival/${id}`)
     const resData = res.data
 
     return resData
