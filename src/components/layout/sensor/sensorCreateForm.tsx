@@ -1,31 +1,45 @@
 'use client'
 
+import { Button } from '@/components/ui/button';
+import { useAppDispatch } from '@/hooks/reduxHooks';
+import { storeSensor } from '@/hooks/slices/sensorSlice';
 import {
-  AtSymbolIcon,
-  KeyIcon,
   TagIcon,
-  PlusCircleIcon,
-  UserIcon
+  UserIcon,
+  PlusCircleIcon
 } from '@heroicons/react/24/outline';
-import { useFormState, useFormStatus } from 'react-dom';
-import { createUser } from '@/app/lib/actions';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
-function CreateEddyCurrentButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <button type="submit" className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 hover:bg-lime-200" aria-disabled={pending}>
-      Inserir Incongruência <PlusCircleIcon className="w-6 mx-1" />
-    </button>
-  );
-}
-
+  
 export default function CreateEddyCurrentForm() {
-  const initialState = { message: null, errors: {} }
-  const [state, dispatch] = useFormState(createUser, initialState);
-
+  const dispatch = useAppDispatch()
+  // const navigate = useNavigate()
+  const [local, setLocal] = useState("")
+  const [tempo, setTempo] = useState("")
+  const [level, setLevel] = useState("")
+  
+  async function handleCreate() {
+    const time = new Date(tempo)
+      try {
+        toast.loading("Carregando...")
+        await dispatch(storeSensor({time, localization,}))
+        .then(() => {
+          toast.dismiss()
+          toast.success("Máquina criada!")
+        },
+        () =>{
+          toast.dismiss()
+          toast.error("Erro ao criar máquina!")
+        })
+        // await dispatch(login({email, password})).unwrap()
+        // navigate("/dashboard")
+      } catch(e) {
+        console.error(e)
+      }
+  }
   return (
-    <form action={dispatch}>
+    <div>
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
         <h1 className="mb-3 text-2xl">
           Incongruência
@@ -41,6 +55,8 @@ export default function CreateEddyCurrentForm() {
               type="text"
               name="local"
               placeholder="Coloque o nome"
+              value={local}
+              onChange={(e)=>setLocal(e.target.value)}
               required
             />
             <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -53,8 +69,10 @@ export default function CreateEddyCurrentForm() {
             <input
               className="peer block w-80 border border-black py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
               id="time"
-              type="text"
+              type="time"
               name="time"
+              value={tempo}
+              onChange={(e)=>setTempo(e.target.value)}
               placeholder="Coloque o nome"
               required
             />
@@ -66,9 +84,11 @@ export default function CreateEddyCurrentForm() {
             <div className="relative">
               <select className="peer block w-80 rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="level"
-                name="type"
-                placeholder="Nivel"
+                name="level"
+                value={level}
+                onChange={(e) => setLevel(e.target.value)}
                 required>
+                <option value="">Escolha um tipo</option>
                 <option value="Baixo">Baixo</option>
                 <option value="Medio">Medio</option>
                 <option value="Alto">Alto</option>
@@ -77,23 +97,10 @@ export default function CreateEddyCurrentForm() {
             </div>
           </div>
         </div>
-        <CreateEddyCurrentButton />
-        <div className="flex h-8 items-end space-x-1" aria-live='polite' aria-atomic='true'>
-          <div id='status-error' aria-live='polite' aria-atomic="true">
-            {state.message &&
-                  <p className="mt-2 text-sm text-red-500" key={state.message}> {state.message} </p>
-              }
-              {state.errors?.category &&
-                state.errors.category.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}> {error} </p>
-              ))}
-            {state.errors?.password &&
-              state.errors.password.map((error: string) => (
-                <p className="mt-2 text-sm text-red-500" key={error}> {error} </p>
-              ))}
-          </div>
-          </div>
-          </div>
-    </form>
+        <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 ml-3 hover:bg-lime-200" onClick={handleCreate}>
+            Cadastrar <PlusCircleIcon className="w-6 mx-1" />
+          </Button>
+      </div>
+    </div>
   );
 }

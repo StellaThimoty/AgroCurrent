@@ -17,16 +17,18 @@ export default function SignupForm() {
   const [category, setCategory] = useState("")
 
   async function handleSignup()
-    {if(password == passwordConfirm) {
-      try {
-        await dispatch(register({name, email, password, category})).unwrap()
-        // await dispatch(login({email, password})).unwrap()
-        // navigate("/dashboard")
-      } catch(e) {
-        console.error(e)
-      }
-    } else {
-      toast.error("Senhas não são iguais!")
+    {
+    
+      if(password == passwordConfirm) {
+        try {
+          await dispatch(register({name, email, password, category})).unwrap()
+          // await dispatch(login({email, password})).unwrap()
+          // navigate("/dashboard")
+        } catch(e) {
+          console.error(e)
+        }
+    }   else {
+          toast.error("Senhas não são iguais!")
     }}
 
   return (
