@@ -1,5 +1,6 @@
 // import Search from '@/app/ui/search';
 
+import CreateReportForm from "@/components/layout/relatorio/relatorioCreateForm"
 import { useEffect } from "react"
 
 export default function Relatorios() {
@@ -13,7 +14,7 @@ export default function Relatorios() {
         <h1 className={`text-2xl`}>Relatorios</h1>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-        {/* <CreateInvoice /> */}
+        { <CreateReportForm /> }
       </div>
       {/* <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
         <Table query={query} currentPage={currentPage} />

@@ -28,7 +28,7 @@ export default function Ajuda() {
         <h1 className='font-bold text-2xl'>Aba de Sensor</h1>
       </div>
       <div className="flex items-center gap-2">
-        <h2 className='text-lg'>Registrar novos relátorios referentes aos sensores, visualiza-lôs. </h2>
+        <h2 className='text-lg'>Registrar novos relátorios referentes aos sensores, e permite visualiza-lôs. </h2>
       </div>
       <div className="mt-4 flex items-center gap-2 ">
         <h1 className='font-bold text-2xl'>Aba de Máquinas</h1>
@@ -46,7 +46,7 @@ export default function Ajuda() {
         <h1 className='font-bold text-2xl'>Relátorios</h1>
       </div>
       <div className="flex items-center gap-2">
-        <h2 className='text-lg'>Registro da checkagem feita antes da entrega e o relátorio depois para da entrega de um maquinário para verificar possiveis avarias.</h2>
+        <h2 className='text-lg'>Registro da checkagem feita antes e depois da entrega de um maquinário para verificar possiveis avarias.</h2>
       </div>
       <div className="mt-4 flex items-center gap-2 ">
         <h1 className='font-bold text-2xl'>Aba de sair</h1>
