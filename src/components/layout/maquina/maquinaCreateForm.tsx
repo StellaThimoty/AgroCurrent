@@ -9,7 +9,6 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import { storeMachine } from '@/hooks/slices/machineSlice';
-import { toast } from 'react-toastify';
 
 export default function CreateMachineForm() {
   const dispatch = useAppDispatch()
@@ -18,22 +17,10 @@ export default function CreateMachineForm() {
   const [type, setType] = useState("")
   
   async function handleCreate() {
-      try {
-        toast.loading("Carregando...")
-        await dispatch(storeMachine({name, type}))
-        .then(() => {
-          toast.dismiss()
-          toast.success("Máquina criada!")
-        },
-        () =>{
-          toast.dismiss()
-          toast.error("Erro ao criar máquina!")
-        })
+        await dispatch(storeMachine({name, type})).unwrap()
+
         // await dispatch(login({email, password})).unwrap()
         // navigate("/dashboard")
-      } catch(e) {
-        console.error(e)
-      }
   }
   
   return (

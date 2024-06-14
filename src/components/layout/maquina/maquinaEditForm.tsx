@@ -1,14 +1,10 @@
 'use client'
 
 import {
-  AtSymbolIcon,
-  KeyIcon,
   TagIcon,
   PlusCircleIcon,
   UserIcon
 } from '@heroicons/react/24/outline';
-import { useFormState, useFormStatus } from 'react-dom';
-import { createUser } from '@/app/lib/actions';
 import { Button } from '@/components/ui/button';
 
 function EditMachineButton() {
@@ -82,6 +78,5 @@ export default function EditMachineForm() {
           Cadastrar <PlusCircleIcon className="w-6 mx-1" />
         </Button>
         </div>
-    </div>
   );
 }

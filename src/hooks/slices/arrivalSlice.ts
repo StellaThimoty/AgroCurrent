@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk,
   //  PayloadAction 
   } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
+import { toast } from 'react-toastify'
 import { AuthApiState, ApiErrorType
   // , Arrival 
 } from "@/lib/types";
@@ -13,9 +14,9 @@ const initialState: AuthApiState = {
   error: null,
 }
 
-export const getArrivalAll = createAsyncThunk("getAll", async (_,{ rejectWithValue }) => {
+export const getArrivalAll = createAsyncThunk("getArrivalAll", async (_,{ rejectWithValue }) => {
   try {
-    const res = await axiosInstance.get("/arrival/")
+    const res = await axiosInstance.get("/arrival")
     const resData = res.data
 
     return resData
@@ -28,7 +29,7 @@ export const getArrivalAll = createAsyncThunk("getAll", async (_,{ rejectWithVal
   }
 })
 
-export const getArrivalById = createAsyncThunk("getById", async (id:number, { rejectWithValue }) => {
+export const getArrivalById = createAsyncThunk("getArrivalById", async (id:number, { rejectWithValue }) => {
   try {
     const res = await axiosInstance.get(`/arrival/id?${id}`)
     const resData = res.data
@@ -43,7 +44,7 @@ export const getArrivalById = createAsyncThunk("getById", async (id:number, { re
   }
 })
 
-export const updateArrival = createAsyncThunk("update",async (data:{id: number, data: string}, { rejectWithValue }) => {
+export const updateArrival = createAsyncThunk("updateArrival",async (data:{id: number, data: string}, { rejectWithValue }) => {
   try {
     const res = await axiosInstance.put(`/arrival/id?${data.id}`, data)
     const resData = res.data
@@ -59,7 +60,7 @@ export const updateArrival = createAsyncThunk("update",async (data:{id: number, 
   }
 })
 
-export const deleteArrival = createAsyncThunk("delete", async(id:number) => {
+export const deleteArrival = createAsyncThunk("deleteArrival", async(id:number) => {
   try {
     const res = await axiosInstance.delete(`/arrival/id?${id}`)
     const resData = res.data
@@ -81,48 +82,84 @@ const arrivalSlice = createSlice({
   extraReducers: (builder) => {
     builder
     // getAll
-    .addCase(getArrivalAll.pending, (state) =>{      state.status = "loading"
+    .addCase(getArrivalAll.pending, (state) =>{
+      toast.loading("Carregando...")
+      state.status = "loading"
       state.error = null
     })
-    .addCase(getArrivalAll.fulfilled, (state, action) =>{      state.status = "idle"
+    .addCase(getArrivalAll.fulfilled, (state, action) =>{
+      toast.dismiss()
+      toast.success("Chegada encontrada!")
+      state.status = "idle"
       return action.payload
     })
-    .addCase(getArrivalAll.rejected, (state, action) =>{      state.status = "failed"
+    .addCase(getArrivalAll.rejected, (state, action) =>{
+      toast.dismiss()
+      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
+        state.error = (action.payload as ApiErrorType).error  || (action.payload as ApiErrorType).erro || "Erro ao Buscar!"
+        toast.error(state.error)
+      }
     })
 
-    .addCase(getArrivalById.pending, (state) =>{      state.status = "loading"
+    .addCase(getArrivalById.pending, (state) =>{
+      toast.loading("Carregando...")
+      state.status = "loading"
       state.error = null
     })
-    .addCase(getArrivalById.fulfilled, (state, action) =>{      state.status = "idle"
+    .addCase(getArrivalById.fulfilled, (state, action) =>{
+      toast.dismiss()
+      toast.success("Chegada encontrada!")
+      state.status = "idle"
       return action.payload
     })
-    .addCase(getArrivalById.rejected, (state, action) =>{      state.status = "failed"
+    .addCase(getArrivalById.rejected, (state, action) =>{
+      toast.dismiss()
+      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
+        state.error = (action.payload as ApiErrorType).error  || (action.payload as ApiErrorType).erro || "Erro ao Buscar!"
+        toast.error(state.error)
+      }
     })
 
-    .addCase(updateArrival.pending, (state) =>{      state.status = "loading"
+    .addCase(updateArrival.pending, (state) =>{
+      toast.loading("Carregando...")
+      state.status = "loading"
       state.error = null
     })
-    .addCase(updateArrival.fulfilled, (state, action) =>{      state.status = "idle"
+    .addCase(updateArrival.fulfilled, (state, action) =>{
+      toast.dismiss()
+      toast.success("Chegada atualizada!")
+      state.status = "idle"
       return action.payload
     })
-    .addCase(updateArrival.rejected, (state, action) =>{      state.status = "failed"
+    .addCase(updateArrival.rejected, (state, action) =>{
+      toast.dismiss()
+      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Atualizar!"      }
+        state.error = (action.payload as ApiErrorType).error  || (action.payload as ApiErrorType).erro || "Erro ao Atualizar!"
+        toast.error(state.error)
+      }
     })
 
-    .addCase(deleteArrival.pending, (state) =>{      state.status = "loading"
+    .addCase(deleteArrival.pending, (state) =>{
+      toast.loading("Carregando...")
+      state.status = "loading"
       state.error = null
     })
-    .addCase(deleteArrival.fulfilled, (state, action) =>{      state.status = "idle"
+    .addCase(deleteArrival.fulfilled, (state, action) =>{
+      toast.dismiss()
+      toast.success("Chegada deletada!")
+      state.status = "idle"
       return action.payload
     })
-    .addCase(deleteArrival.rejected, (state, action) =>{      state.status = "failed"
+    .addCase(deleteArrival.rejected, (state, action) =>{
+      toast.dismiss()
+      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
+        state.error = (action.payload as ApiErrorType).error  || (action.payload as ApiErrorType).erro || "Erro ao Deletar!"
+        toast.error(state.error)
+      }
     })
   },
 });

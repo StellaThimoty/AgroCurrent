@@ -50,7 +50,7 @@ export type Machine = {
 }
 
 export type MachineState = AuthApiState & {
-  machine: NewMachine
+  machine: Machine
 }
 
 export type NewMachine = Omit<Machine, "id">
@@ -79,5 +79,6 @@ export type AuthApiState = {
 };
 
 export type ApiErrorType = {
-  error: string;
+  error?: string;
+  erro?: string;
 }

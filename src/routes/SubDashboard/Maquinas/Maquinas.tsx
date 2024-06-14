@@ -1,13 +1,12 @@
 // import Search from '@/app/ui/search';
 // import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel"
 import CreateMachineForm from "@/components/layout/maquina/maquinaCreateForm"
-import { useUser } from "@/routes/Dashboard"
+// import { useUser } from "@/routes/Dashboard"
 import { useEffect } from "react"
 
 export default function Maquinas() {
-  const userInfo = useUser()
-  const cargo = userInfo[0]
-  console.log(cargo)
+  // const userInfo = useUser()
+  // const cargo = userInfo[0]
   // const nome = userInfo[1]
 
   useEffect(() => {

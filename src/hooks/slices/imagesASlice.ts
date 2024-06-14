@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
+import { toast } from 'react-toastify'
 import { AuthApiState, ApiErrorType, ImagesArrival } from "@/lib/types";
 import { AxiosError } from "axios";
 
@@ -9,7 +10,7 @@ const initialState: AuthApiState = {
   error: null,
 }
 
-export const storeImagesArrival = createAsyncThunk("store", async (data: ImagesArrival,{ rejectWithValue }) => {
+export const storeImagesArrival = createAsyncThunk("storeImagesArrival", async (data: ImagesArrival,{ rejectWithValue }) => {
   try {
     const res = await axiosInstance.post(`/imagesArrival/id?${data.arrivalId}`, data)
     const resData = res.data
@@ -24,7 +25,7 @@ export const storeImagesArrival = createAsyncThunk("store", async (data: ImagesA
   }
 })
 
-export const getImagesArrivalById = createAsyncThunk("getById", async (id:number, { rejectWithValue }) => {
+export const getImagesArrivalById = createAsyncThunk("getImagesArrivalById", async (id:number, { rejectWithValue }) => {
   try {
     const res = await axiosInstance.get(`/imagesArrival/id?${id}`)
     const resData = res.data
@@ -39,7 +40,7 @@ export const getImagesArrivalById = createAsyncThunk("getById", async (id:number
   }
 })
 
-export const deleteImagesArrival = createAsyncThunk("delete", async(id:number) => {
+export const deleteImagesArrival = createAsyncThunk("deleteImagesArrival", async(id:number) => {
   try {
     const res = await axiosInstance.delete(`/imagesArrival/id?${id}`)
     const resData = res.data
@@ -60,37 +61,64 @@ const imagesArrivalSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-    .addCase(storeImagesArrival.pending, (state) =>{      state.status = "loading"
+    .addCase(storeImagesArrival.pending, (state) =>{
+      toast.loading("Carregando...")
+      state.status = "loading"
       state.error = null
     })
-    .addCase(storeImagesArrival.fulfilled, (state, action) =>{      state.status = "idle"
+    .addCase(storeImagesArrival.fulfilled, (state, action) =>{
+      toast.dismiss()
+      toast.success("Relatório criado!")
+      state.status = "idle"
       return action.payload
     })
-    .addCase(storeImagesArrival.rejected, (state, action) =>{      state.status = "failed"
+    .addCase(storeImagesArrival.rejected, (state, action) =>{
+      toast.dismiss()
+      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
+        state.error = (action.payload as ApiErrorType).error  || (action.payload as ApiErrorType).erro || "Erro ao Cadastrar!"
+        toast.error(state.error)
+      }
     })
 
-    .addCase(getImagesArrivalById.pending, (state) =>{      state.status = "loading"
+    .addCase(getImagesArrivalById.pending, (state) =>{
+      toast.loading("Carregando...")
+      state.status = "loading"
       state.error = null
     })
-    .addCase(getImagesArrivalById.fulfilled, (state, action) =>{      state.status = "idle"
+    .addCase(getImagesArrivalById.fulfilled, (state, action) =>{
+      toast.dismiss()
+      toast.success("Relatório encontrado!")
+      state.status = "idle"
       return action.payload
     })
-    .addCase(getImagesArrivalById.rejected, (state, action) =>{      state.status = "failed"
+    .addCase(getImagesArrivalById.rejected, (state, action) =>{
+      toast.dismiss()
+      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
+        state.error = (action.payload as ApiErrorType).error  || (action.payload as ApiErrorType).erro || "Erro ao Buscar!"
+        toast.error(state.error)
+      }
     })
 
-    .addCase(deleteImagesArrival.pending, (state) =>{      state.status = "loading"
+    .addCase(deleteImagesArrival.pending, (state) =>{
+      toast.loading("Carregando...")
+      state.status = "loading"
       state.error = null
     })
-    .addCase(deleteImagesArrival.fulfilled, (state, action) =>{      state.status = "idle"
+    .addCase(deleteImagesArrival.fulfilled, (state, action) =>{
+      toast.dismiss()
+      toast.success("Relatório deletado!")
+      state.status = "idle"
       return action.payload
     })
-    .addCase(deleteImagesArrival.rejected, (state, action) =>{      state.status = "failed"
+    .addCase(deleteImagesArrival.rejected, (state, action) =>{
+      toast.dismiss()
+      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
+        state.error = (action.payload as ApiErrorType).error  || (action.payload as ApiErrorType).erro || "Erro ao Deletar!"
+        toast.error(state.error)
+      }
     })
   },
 });

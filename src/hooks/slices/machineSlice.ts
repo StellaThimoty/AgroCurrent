@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
-import { ApiErrorType, Machine, MachineState, NewMachine } from "@/lib/types";
+import { toast } from 'react-toastify'
+import { ApiErrorType, Machine, MachineState } from "@/lib/types";
 import { AxiosError } from "axios";
 
 const initialState: MachineState = {
-  // userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string) : null,
+  userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string) : null,
   machine: {
+    id: 0,
     name: "",
     type: "",
   },
@@ -13,9 +15,23 @@ const initialState: MachineState = {
   error: null,
 }
 
-export const storeMachine = createAsyncThunk("store", async (data: NewMachine,{ rejectWithValue }) => {
+export const storeMachine = createAsyncThunk("storeMachine", async (data: {name: string, type:string},{ rejectWithValue }) => {
   try {
-    const res = await axiosInstance.post("/machine/", data)
+    const res = await axiosInstance.post("/machine", data)
+    const resData = res.data
+    return resData
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) {
+      const errorResponse = error.response.data
+      return rejectWithValue(errorResponse)
+    }
+    throw error
+  }
+})
+
+export const getMachineAll = createAsyncThunk("getMachineAll", async (_,{ rejectWithValue }) => {
+  try {
+    const res = await axiosInstance.get("/machine")
     const resData = res.data
 
     return resData
@@ -28,22 +44,7 @@ export const storeMachine = createAsyncThunk("store", async (data: NewMachine,{ 
   }
 })
 
-export const getMachineAll = createAsyncThunk("getAll", async (_,{ rejectWithValue }) => {
-  try {
-    const res = await axiosInstance.get("/machine/")
-    const resData = res.data
-
-    return resData
-  } catch (error) {
-    if (error instanceof AxiosError && error.response) {
-      const errorResponse = error.response.data
-      return rejectWithValue(errorResponse)
-    }
-    throw error
-  }
-})
-
-export const getMachineById = createAsyncThunk("getById", async (id:number, { rejectWithValue }) => {
+export const getMachineById = createAsyncThunk("getMachineById", async (id:number, { rejectWithValue }) => {
   try {
     const res = await axiosInstance.get(`/machine/id?${id}`)
     const resData = res.data
@@ -58,7 +59,7 @@ export const getMachineById = createAsyncThunk("getById", async (id:number, { re
   }
 })
 
-export const updateMachine = createAsyncThunk("update",async (data:Machine, { rejectWithValue }) => {
+export const updateMachine = createAsyncThunk("updateMachine",async (data:Machine, { rejectWithValue }) => {
   try {
     const res = await axiosInstance.put(`/machine/id?${data.id}`, data)
     const resData = res.data
@@ -74,7 +75,7 @@ export const updateMachine = createAsyncThunk("update",async (data:Machine, { re
   }
 })
 
-export const deleteMachine = createAsyncThunk("delete", async(id:number) => {
+export const deleteMachine = createAsyncThunk("deleteMachine", async(id:number) => {
   try {
     const res = await axiosInstance.delete(`/machine/id?${id}`)
     const resData = res.data
@@ -96,62 +97,102 @@ const machineSlice = createSlice({
   extraReducers: (builder) => {
     builder
     .addCase(storeMachine.pending, (state) =>{
+      toast.loading("Carregando...")
       state.status = "loading"
       state.error = null
     })
-    .addCase(storeMachine.fulfilled, (state, action: PayloadAction<NewMachine>) =>{
+    .addCase(storeMachine.fulfilled, (state, action: PayloadAction<Machine>) => {
+      toast.dismiss()
       state.status = "idle"
+      toast.success("Máquina criada!")
       state.machine = action.payload
     })
     .addCase(storeMachine.rejected, (state, action) =>{
+      toast.dismiss()
       state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Criar!"
+        state.error = (action.payload as ApiErrorType).error || (action.payload as ApiErrorType).erro || "Erro ao Criar!"
+        toast.error(state.error)
+      }
+    })
+    .addCase(getMachineAll.pending, (state) =>{
+      toast.loading("Carregando...")
+      state.status = "loading"
+      state.error = null
+    })
+    .addCase(getMachineAll.fulfilled, (state, action) =>{
+      toast.dismiss()
+      toast.success("Máquina encontrada!")
+      state.status = "idle"
+      return action.payload
+    })
+    .addCase(getMachineAll.rejected, (state, action) =>{
+      toast.dismiss()
+      state.status = "failed"
+      if (action.payload) {
+        state.error = (action.payload as ApiErrorType).error || (action.payload as ApiErrorType).erro || "Erro ao Buscar!"
+        toast.error(state.error)
       }
     })
 
-    .addCase(getMachineAll.pending, (state) =>{      state.status = "loading"
+    .addCase(getMachineById.pending, (state) =>{
+      toast.loading("Carregando...")
+      state.status = "loading"
       state.error = null
     })
-    .addCase(getMachineAll.fulfilled, (state, action) =>{      state.status = "idle"
+    .addCase(getMachineById.fulfilled, (state, action) =>{
+      toast.dismiss()
+      toast.success("Máquina encontrada!")
+      state.status = "idle"
       return action.payload
     })
-    .addCase(getMachineAll.rejected, (state, action) =>{      state.status = "failed"
+    .addCase(getMachineById.rejected, (state, action) =>{
+      toast.dismiss()
+      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
+        state.error = (action.payload as ApiErrorType).error || (action.payload as ApiErrorType).erro || "Erro ao Buscar!"
+        toast.error(state.error)
+      }
     })
 
-    .addCase(getMachineById.pending, (state) =>{      state.status = "loading"
+    .addCase(updateMachine.pending, (state) =>{
+      toast.loading("Carregando...")
+      state.status = "loading"
       state.error = null
     })
-    .addCase(getMachineById.fulfilled, (state, action) =>{      state.status = "idle"
+    .addCase(updateMachine.fulfilled, (state, action) =>{
+      toast.dismiss()
+      toast.success("Máquina atualizada!")
+      state.status = "idle"
       return action.payload
     })
-    .addCase(getMachineById.rejected, (state, action) =>{      state.status = "failed"
+    .addCase(updateMachine.rejected, (state, action) =>{
+      toast.dismiss()
+      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Buscar!"      }
+        state.error = (action.payload as ApiErrorType).error || (action.payload as ApiErrorType).erro || "Erro ao Atualizar!"
+        toast.error(state.error)
+      }
     })
 
-    .addCase(updateMachine.pending, (state) =>{      state.status = "loading"
+    .addCase(deleteMachine.pending, (state) =>{
+      toast.loading("Carregando...")
+      state.status = "loading"
       state.error = null
     })
-    .addCase(updateMachine.fulfilled, (state, action) =>{      state.status = "idle"
+    .addCase(deleteMachine.fulfilled, (state, action) =>{
+      toast.dismiss()
+      toast.success("Máquina deletada!")
+      state.status = "idle"
       return action.payload
     })
-    .addCase(updateMachine.rejected, (state, action) =>{      state.status = "failed"
+    .addCase(deleteMachine.rejected, (state, action) =>{
+      toast.dismiss()
+      state.status = "failed"
       if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Atualizar!"      }
-    })
-
-    .addCase(deleteMachine.pending, (state) =>{      state.status = "loading"
-      state.error = null
-    })
-    .addCase(deleteMachine.fulfilled, (state, action) =>{      state.status = "idle"
-      return action.payload
-    })
-    .addCase(deleteMachine.rejected, (state, action) =>{      state.status = "failed"
-      if (action.payload) {
-        state.error = (action.payload as ApiErrorType).error || "Erro ao Deletar!"      }
+        state.error = (action.payload as ApiErrorType).error || (action.payload as ApiErrorType).erro || "Erro ao Deletar!"
+        toast.error(state.error)
+      }
     })
   },
 });
