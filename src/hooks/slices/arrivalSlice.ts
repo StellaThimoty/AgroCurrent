@@ -89,7 +89,6 @@ const arrivalSlice = createSlice({
     })
     .addCase(getArrivalAll.fulfilled, (state, action) =>{
       toast.dismiss()
-      toast.success("Chegada encontrada!")
       state.status = "idle"
       return action.payload
     })

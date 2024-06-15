@@ -118,8 +118,6 @@ const reportSlice = createSlice({
       state.error = null
     })
     .addCase(getReportAll.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Relatório encontrado!")
       state.status = "idle"
       return action.payload
     })

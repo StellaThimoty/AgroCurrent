@@ -116,13 +116,10 @@ const machineSlice = createSlice({
       }
     })
     .addCase(getMachineAll.pending, (state) =>{
-      toast.loading("Carregando...")
       state.status = "loading"
       state.error = null
     })
     .addCase(getMachineAll.fulfilled, (state, action) =>{
-      toast.dismiss()
-      toast.success("Máquina encontrada!")
       state.status = "idle"
       state.machine = action.payload
     })
@@ -142,7 +139,6 @@ const machineSlice = createSlice({
     })
     .addCase(getMachineById.fulfilled, (state, action) =>{
       toast.dismiss()
-      toast.success("Máquina encontrada!")
       state.status = "idle"
       state.machine = action.payload
     })
