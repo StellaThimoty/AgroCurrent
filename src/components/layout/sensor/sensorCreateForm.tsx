@@ -9,12 +9,10 @@ import {
   PlusCircleIcon
 } from '@heroicons/react/24/outline';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
 
   
 export default function CreateEddyCurrentForm() {
   const dispatch = useAppDispatch()
-  // const navigate = useNavigate()
   const [localization, setLocalization] = useState("")
   const [tempo, setTempo] = useState("")
   const [part_machine, setPart_machine] = useState("")
@@ -24,18 +22,7 @@ export default function CreateEddyCurrentForm() {
   async function handleCreate() {
     const time = new Date(tempo)
       try {
-        toast.loading("Carregando...")
         await dispatch(storeSensor({time, part_machine, localization, arrivalId}))
-        .then(() => {
-          toast.dismiss()
-          toast.success("Máquina criada!")
-        },
-        () =>{
-          toast.dismiss()
-          toast.error("Erro ao criar máquina!")
-        })
-        // await dispatch(login({email, password})).unwrap()
-        // navigate("/dashboard")
       } catch(e) {
         console.error(e)
       }
