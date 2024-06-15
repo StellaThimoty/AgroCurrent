@@ -74,7 +74,7 @@ const imagesArrivalSlice = createSlice({
       toast.dismiss()
       toast.success("Relatório criado!")
       state.status = "idle"
-      return action.payload
+      state.imagesArrival = action.payload
     })
     .addCase(storeImagesArrival.rejected, (state, action) =>{
       toast.dismiss()
@@ -94,7 +94,7 @@ const imagesArrivalSlice = createSlice({
       toast.dismiss()
       toast.success("Relatório encontrado!")
       state.status = "idle"
-      return action.payload
+      state.imagesArrival = action.payload
     })
     .addCase(getImagesArrivalById.rejected, (state, action) =>{
       toast.dismiss()
@@ -114,7 +114,7 @@ const imagesArrivalSlice = createSlice({
       toast.dismiss()
       toast.success("Relatório deletado!")
       state.status = "idle"
-      return action.payload
+      state.imagesArrival = action.payload
     })
     .addCase(deleteImagesArrival.rejected, (state, action) =>{
       toast.dismiss()
