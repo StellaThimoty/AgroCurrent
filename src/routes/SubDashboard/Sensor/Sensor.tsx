@@ -1,5 +1,6 @@
 // import Search from '@/app/ui/search';
 
+import CreateEddyCurrentForm from "@/components/layout/sensor/sensorCreateForm"
 import { useEffect } from "react"
 
 export default function Sensor() {
@@ -13,7 +14,7 @@ export default function Sensor() {
         <h1 className={`text-2xl`}>Sensor</h1>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-        {/* <CreateInvoice /> */}
+        { <CreateEddyCurrentForm /> }
       </div>
       {/* <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
         <Table query={query} currentPage={currentPage} />
