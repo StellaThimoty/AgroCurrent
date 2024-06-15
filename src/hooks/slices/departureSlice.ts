@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk, PayloadAction,
   } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
 import { toast } from 'react-toastify'
-import { DepartureState, ApiErrorType, Departure, DepartureUpdate
+import { DepartureState, ApiErrorType, Departure, DepartureUpdate, NewDeparture
   // , Departure 
 } from "@/lib/types";
 import { AxiosError } from "axios";
@@ -21,7 +21,7 @@ const initialState: DepartureState = {
   error: null,
 }
 
-export const storeDeparture = createAsyncThunk("storeDeparture", async (data: Departure,{ rejectWithValue }) => {
+export const storeDeparture = createAsyncThunk("storeDeparture", async (data: NewDeparture,{ rejectWithValue }) => {
   try {
     const res = await axiosInstance.post("/departure", data)
     const resData = res.data

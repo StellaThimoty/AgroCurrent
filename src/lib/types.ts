@@ -29,6 +29,8 @@ export type Departure = {
   machineId: number;
 }
 
+export type NewDeparture = Omit<Departure, 'id'>
+
 export type DepartureState = AuthApiState & {
   departure: Departure
 }

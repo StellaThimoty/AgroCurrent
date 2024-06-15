@@ -11,19 +11,20 @@ import { useAppDispatch } from '@/hooks/reduxHooks';
 import { storeMachine } from '@/hooks/slices/machineSlice';
 import { toast } from 'react-toastify';
 import { storeReport } from '@/hooks/slices/reportSlice';
+import { storeDeparture } from '@/hooks/slices/departureSlice';
 
 export default function CreateReportForm() {
   const dispatch = useAppDispatch()
   // const navigate = useNavigate()
-  const [adress, setAdress] = useState("")
+  const [address, setaddress] = useState("")
   const [client, setClient] = useState("")
   const [date_departure, setDateDeparture] = useState("")
-  const [machineId, setMachineId] = useState("")
+  const [machineId, setMachineId] = useState(0)
   
   async function handleCreate() {
       try {
         toast.loading("Carregando...")
-        await dispatch(storeReport({adress, client, date_departure, machineId}))
+        await dispatch(storeDeparture({address, client, date_departure, machineId}))
         .then(() => {
           toast.dismiss()
           toast.success("Formulário criada!")
@@ -56,8 +57,8 @@ export default function CreateReportForm() {
               type="text"
               name="name"
               placeholder="Coloque o endereço"
-              value={adress}
-              onChange={(e) => setAdress(e.target.value)}
+              value={address}
+              onChange={(e) => setaddress(e.target.value)}
               required
             />
             <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -87,11 +88,11 @@ export default function CreateReportForm() {
             <input
               className="peer block w-80 border border-black py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
               id="name"
-              type="text"
+              type="datetime-local"
               name="name"
-              placeholder="Coloque a hora de saída"
               value={date_departure}
-              onChange={(e) => setDateDeparture(e.target.value)}
+              onChange={(e)=>setDateDeparture(e.target.value)}
+              placeholder={date_departure.toString()}
               required
             />
             <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -104,11 +105,11 @@ export default function CreateReportForm() {
             <input
               className="peer block w-80 border border-black py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
               id="name"
-              type="text"
+              type="number"
               name="name"
               placeholder="Coloque o Id da Máquina"
               value={machineId}
-              onChange={(e) => setMachineId(e.target.value)}
+              onChange={(e) => setMachineId(Number(e.target.value))}
               required
             />
             <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
