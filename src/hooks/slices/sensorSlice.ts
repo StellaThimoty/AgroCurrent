@@ -1,11 +1,17 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
 import { toast } from 'react-toastify'
-import { AuthApiState, ApiErrorType, Sensor } from "@/lib/types";
+import { ApiErrorType, Sensor, SensorState } from "@/lib/types";
 import { AxiosError } from "axios";
 
-const initialState: AuthApiState = {
+const initialState: SensorState = {
   userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string) : null,
+  sensor: {
+    time: "",
+    part_machine: "",
+    localization: "",
+    arrivalId: 0,
+  },
   status: "idle",
   error: null,
 }
@@ -81,11 +87,11 @@ const sensorSlice = createSlice({
       state.status = "loading"
       state.error = null
     })
-    .addCase(storeSensor.fulfilled, (state, action) =>{
+    .addCase(storeSensor.fulfilled, (state, action: PayloadAction<Sensor>) =>{
       toast.dismiss()
       toast.success("Máquina criada!")
       state.status = "idle"
-      return action.payload
+      state.sensor = action.payload
     })
     .addCase(storeSensor.rejected, (state, action) =>{
       toast.dismiss()

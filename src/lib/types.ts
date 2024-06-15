@@ -60,10 +60,14 @@ export type Report = {
 }
 
 export type Sensor = {
-  time: Date;
+  time: string;
   part_machine: string;
   localization: string;
   arrivalId: number;
+}
+
+export type SensorState = AuthApiState & {
+  sensor: Sensor
 }
 
 export type AuthContextProps = {
