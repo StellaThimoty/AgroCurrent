@@ -89,7 +89,7 @@ const sensorSlice = createSlice({
     })
     .addCase(storeSensor.fulfilled, (state, action: PayloadAction<Sensor>) =>{
       toast.dismiss()
-      toast.success("Máquina criada!")
+      toast.success("Relatório criado!")
       state.status = "idle"
       state.sensor = action.payload
     })
@@ -107,11 +107,11 @@ const sensorSlice = createSlice({
       state.status = "loading"
       state.error = null
     })
-    .addCase(getSensorById.fulfilled, (state, action) =>{
+    .addCase(getSensorById.fulfilled, (state, action: PayloadAction<Sensor>) =>{
       toast.dismiss()
-      toast.success("Máquina encontrada!")
+      toast.success("Relatório encontrado!")
       state.status = "idle"
-      return action.payload
+      state.sensor = action.payload
     })
     .addCase(getSensorById.rejected, (state, action) =>{
       toast.dismiss()
@@ -129,9 +129,9 @@ const sensorSlice = createSlice({
     })
     .addCase(deleteSensor.fulfilled, (state, action) =>{
       toast.dismiss()
-      toast.success("Máquina deletada!")
+      toast.success("Relatório deletado!")
       state.status = "idle"
-      return action.payload
+      state.sensor =  action.payload
     })
     .addCase(deleteSensor.rejected, (state, action) =>{
       toast.dismiss()

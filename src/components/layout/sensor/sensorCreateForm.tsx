@@ -14,14 +14,13 @@ import { useState } from 'react';
 export default function CreateEddyCurrentForm() {
   const dispatch = useAppDispatch()
   const [localization, setLocalization] = useState("")
-  const [tempo, setTempo] = useState("")
+  const [time, setTime] = useState("")
   const [part_machine, setPart_machine] = useState("")
   const [level, setLevel] = useState("")
   const [arrivalId, setArrivalId] = useState(0)
   const date = Date.now();
   
   async function handleCreate() {
-    const time = new Date(tempo)
       try {
         await dispatch(storeSensor({time, part_machine, localization, arrivalId}))
       } catch(e) {
@@ -81,8 +80,8 @@ export default function CreateEddyCurrentForm() {
               id="date"
               type="datetime-local"
               name="date"
-              value={tempo}
-              onChange={(e)=>setTempo(e.target.value)}
+              value={time}
+              onChange={(e)=>setTime(e.target.value)}
               placeholder={date.toString()}
               required
             />

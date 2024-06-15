@@ -1,15 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
 import { toast } from 'react-toastify'
-import { AuthApiState, ApiErrorType, ImagesDeparture } from "@/lib/types";
+import { ImagesDepartureState, ApiErrorType, ImagesDeparture } from "@/lib/types";
 import { AxiosError } from "axios";
 
-const initialState: AuthApiState = {
+const initialState: ImagesDepartureState = {
   userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string) : null,
+  imagesDeparture: {
+    images: [],
+    departureId: 0,
+  },
   status: "idle",
   error: null,
 }
-
 export const storeImagesDeparture = createAsyncThunk("storeImagesDeparture", async (data: ImagesDeparture,{ rejectWithValue }) => {
   try {
     const res = await axiosInstance.post(`/imagesDeparture/${data.departureId}`, data)
@@ -70,7 +73,7 @@ const imagesDepartureSlice = createSlice({
       toast.dismiss()
       toast.success("Relatório criado!")
       state.status = "idle"
-      return action.payload
+      state.imagesDeparture = action.payload
     })
     .addCase(storeImagesDeparture.rejected, (state, action) =>{
       toast.dismiss()
@@ -90,7 +93,7 @@ const imagesDepartureSlice = createSlice({
       toast.dismiss()
       toast.success("Relatório encontrado!")
       state.status = "idle"
-      return action.payload
+      state.imagesDeparture = action.payload
     })
     .addCase(getImagesDepartureById.rejected, (state, action) =>{
       toast.dismiss()
@@ -110,7 +113,7 @@ const imagesDepartureSlice = createSlice({
       toast.dismiss()
       toast.success("Relatório deletado!")
       state.status = "idle"
-      return action.payload
+      state.imagesDeparture = action.payload
     })
     .addCase(deleteImagesDeparture.rejected, (state, action) =>{
       toast.dismiss()

@@ -1,15 +1,22 @@
-import { createSlice, createAsyncThunk,
+import { createSlice, createAsyncThunk, PayloadAction,
   //  PayloadAction 
   } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
 import { toast } from 'react-toastify'
-import { AuthApiState, ApiErrorType, Departure, DepartureUpdate
+import { DepartureState, ApiErrorType, Departure, DepartureUpdate
   // , Departure 
 } from "@/lib/types";
 import { AxiosError } from "axios";
 
-const initialState: AuthApiState = {
+const initialState: DepartureState = {
   userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string) : null,
+  departure: {
+    id: 0,
+    address: "",
+    client: "",
+    date_departure: "",
+    machineId: 0,
+  },
   status: "idle",
   error: null,
 }
@@ -101,11 +108,11 @@ const departureSlice = createSlice({
       state.status = "loading"
       state.error = null
     })
-    .addCase(storeDeparture.fulfilled, (state, action) =>{
+    .addCase(storeDeparture.fulfilled, (state, action: PayloadAction<Departure>) =>{
       toast.dismiss()
-      toast.success("Chegada encontrada!")
+      toast.success("Chegada cadastrada!")
       state.status = "idle"
-      return action.payload
+      state.departure = action.payload
     })
     .addCase(storeDeparture.rejected, (state, action) =>{
       toast.dismiss()
@@ -121,10 +128,10 @@ const departureSlice = createSlice({
       state.status = "loading"
       state.error = null
     })
-    .addCase(getDepartureAll.fulfilled, (state, action) =>{
+    .addCase(getDepartureAll.fulfilled, (state, action: PayloadAction<Departure>) =>{
       toast.dismiss()
       state.status = "idle"
-      return action.payload
+      state.departure = action.payload
     })
     .addCase(getDepartureAll.rejected, (state, action) =>{
       toast.dismiss()

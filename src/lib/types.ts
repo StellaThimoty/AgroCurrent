@@ -25,22 +25,34 @@ export type Departure = {
   id: number;
   address: string;
   client: string;
-  date_departure: Date;
+  date_departure: string;
   machineId: number;
+}
+
+export type DepartureState = AuthApiState & {
+  departure: Departure
 }
 
 export type DepartureUpdate = Omit<Departure, "machineId">
 
 export type Image = {
-  image: string;
+  images: string[];
 }
 
 export type ImagesDeparture = Image & {
   departureId: number;
 }
 
+export type ImagesDepartureState = AuthApiState & {
+  imagesDeparture: ImagesDeparture
+}
+
 export type ImagesArrival = Image & {
   arrivalId: number;
+}
+
+export type ImagesArrivalState = AuthApiState & {
+  imagesArrival: ImagesArrival
 }
 
 export type Machine = {
