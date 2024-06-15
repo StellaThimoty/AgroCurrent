@@ -1,11 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
 import { toast } from 'react-toastify'
-import { AuthApiState, ApiErrorType, ImagesArrival } from "@/lib/types";
+import { ApiErrorType, ImagesArrival, ImagesArrivalState } from "@/lib/types";
 import { AxiosError } from "axios";
 
-const initialState: AuthApiState = {
+const initialState: ImagesArrivalState = {
   userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string) : null,
+  imagesArrival: {
+    images: [],
+    arrivalId: 0,
+  },
   status: "idle",
   error: null,
 }
