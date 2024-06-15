@@ -15,13 +15,15 @@ import { storeReport } from '@/hooks/slices/reportSlice';
 export default function CreateReportForm() {
   const dispatch = useAppDispatch()
   // const navigate = useNavigate()
-  const [name, setName] = useState("")
-  const [type, setType] = useState("")
+  const [adress, setAdress] = useState("")
+  const [client, setClient] = useState("")
+  const [date_departure, setDateDeparture] = useState("")
+  const [machineId, setMachineId] = useState("")
   
   async function handleCreate() {
       try {
         toast.loading("Carregando...")
-        await dispatch(storeReport({name, type}))
+        await dispatch(storeReport({adress, client, date_departure, machineId}))
         .then(() => {
           toast.dismiss()
           toast.success("Formulário criada!")
@@ -43,9 +45,9 @@ export default function CreateReportForm() {
         <h1 className="mb-3 text-2xl">
           Cadastro de Relatórios
         </h1>
-        <div className="w-full">
+          <div className="w-full">
           <label className="my-3 block font-medium text-gray-900" htmlFor="name">
-            Nome do Relatório
+            Endereço
           </label>
           <div className="relative">
             <input
@@ -53,35 +55,72 @@ export default function CreateReportForm() {
               id="name"
               type="text"
               name="name"
-              placeholder="Coloque o nome"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              placeholder="Coloque o endereço"
+              value={adress}
+              onChange={(e) => setAdress(e.target.value)}
               required
             />
             <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
-            <label className="my-3 block font-medium text-gray-900" htmlFor="category">
-              Selecione o tipo de Relatório
-            </label>
-            <div className="relative">
-              <select className="peer block w-80 rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                id="type"
-                name="type"
-                value={type}
-                onChange={(e) => setType(e.target.value)}
-                required>
-                <option value="">Escolha um tipo</option>
-                <option value="Trator">Trator</option>
-                <option value="Plantadeira">Plantadeira</option>
-                <option value="Colheitadeira">Colheitadeira</option>
-              </select>
-              <TagIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 mx-1 peer-focus:text-gray-900" />
-            </div>
+          <div className="w-full">
+          <label className="my-3 block font-medium text-gray-900" htmlFor="name">
+            Cliente
+          </label>
+          <div className="relative">
+            <input
+              className="peer block w-80 border border-black py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+              id="name"
+              type="text"
+              name="name"
+              placeholder="Coloque o nome do cliente"
+              value={client}
+              onChange={(e) => setClient(e.target.value)}
+              required
+            />
+            <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+          </div>
+          <div className="w-full">
+          <label className="my-3 block font-medium text-gray-900" htmlFor="name">
+            Hora de saída
+          </label>
+          <div className="relative">
+            <input
+              className="peer block w-80 border border-black py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+              id="name"
+              type="text"
+              name="name"
+              placeholder="Coloque a hora de saída"
+              value={date_departure}
+              onChange={(e) => setDateDeparture(e.target.value)}
+              required
+            />
+            <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+          </div>
+          <div className="w-full">
+          <label className="my-3 block font-medium text-gray-900" htmlFor="name">
+            Id Máquina
+          </label>
+          <div className="relative">
+            <input
+              className="peer block w-80 border border-black py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+              id="name"
+              type="text"
+              name="name"
+              placeholder="Coloque o Id da Máquina"
+              value={machineId}
+              onChange={(e) => setMachineId(e.target.value)}
+              required
+            />
+            <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+          </div>
           </div>
         </div>
         <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 hover:bg-lime-200" onClick={handleCreate}>
           Cadastrar <PlusCircleIcon className="w-6 mx-1" />
         </Button>
     </div>
+</div>
+</div>
+</div>
   );
 }
