@@ -59,7 +59,7 @@ export const getMachineById = createAsyncThunk("getMachineById", async (id:numbe
   }
 })
 
-export const updateMachine = createAsyncThunk("updateMachine",async (data:Machine, { rejectWithValue }) => {
+export const updateMachine = createAsyncThunk("updateMachine",async (data:Partial<Machine>, { rejectWithValue }) => {
   try {
     const res = await axiosInstance.put(`/machine/${data.id}`, data)
     const resData = res.data

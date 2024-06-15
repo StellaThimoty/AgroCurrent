@@ -3,14 +3,15 @@
 import {
   TagIcon,
   PlusCircleIcon,
-  UserIcon
+  UserIcon,
+  ArrowLeftCircleIcon
 } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import { useEffect, useState } from 'react';
 import { getMachineById, updateMachine } from '@/hooks/slices/machineSlice';
 import { Machine } from '@/lib/types';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 export default function EditMachineForm() {
   const dispatch = useAppDispatch()
@@ -18,19 +19,19 @@ export default function EditMachineForm() {
   const machineId = Number(id)
   // const navigate = useNavigate()
   const [machine, setMachine] = useState<Machine>()
-  const [name, setName] = useState("")
-  const [type, setType] = useState("")
+  const [name, setName] = useState<string | undefined>("")
+  const [type, setType] = useState<string | undefined>("")
   
   useEffect(() => {
     async function getMachine() {
-      console.log(machineId)
       const response = await dispatch(getMachineById(machineId)).unwrap()
-      console.log(machineId)
       setMachine(response)
+      setName(machine?.name)
+      setType(machine?.type)
     }
 
     getMachine()
-  }, [])
+  }, [dispatch, machine?.name, machine?.type, machineId])
 
   async function handleEdit() {
       try {
@@ -63,7 +64,7 @@ export default function EditMachineForm() {
               type="text"
               name="name"
               placeholder="Coloque o nome"
-              value={machine?.name}
+              value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
@@ -76,7 +77,7 @@ export default function EditMachineForm() {
               <select className="peer block w-80 rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="type"
                 name="type"
-                value={machine?.type}
+                value={type}
                 onChange={(e) => setType(e.target.value)}
                 required>
                 <option value="">Escolha um tipo</option>
@@ -88,9 +89,16 @@ export default function EditMachineForm() {
             </div>
           </div>
         </div>
-        <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 hover:bg-lime-200" onClick={handleEdit}>
-          Editar <PlusCircleIcon className="w-6 mx-1" />
-        </Button>
+          <div className='flex'>
+          <Link to="/Dashboard/Maquinas">
+              <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 mr-3 hover:bg-lime-200">
+                Voltar <ArrowLeftCircleIcon className="w-6 mx-1" />
+              </Button>
+            </Link>
+          <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 hover:bg-lime-200" onClick={handleEdit}>
+            Editar <PlusCircleIcon className="w-6 mx-1" />
+          </Button>
+          </div>
         </div>
   );
 }

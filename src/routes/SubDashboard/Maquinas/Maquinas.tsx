@@ -3,7 +3,7 @@ import CreateMachineForm from "@/components/layout/maquina/maquinaCreateForm"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { useAppDispatch } from "@/hooks/reduxHooks"
-import { getMachineAll } from "@/hooks/slices/machineSlice"
+import { deleteMachine, getMachineAll } from "@/hooks/slices/machineSlice"
 import { Machine } from "@/lib/types"
 import { isAdm, isReg } from "@/lib/utils"
 import { useUser } from "@/routes/Dashboard"
@@ -18,6 +18,11 @@ export default function Maquinas() {
   // const nome = userInfo[1]
   const adm = isAdm(cargo)
   const reg = isReg(cargo)
+
+  async function handleDelete(id:number) {
+    await dispatch(deleteMachine(id)).unwrap()
+  }
+
   useEffect(() => {
     document.title = "Agro Current - Máquinas"
     async function getMachines() {
@@ -53,7 +58,7 @@ export default function Maquinas() {
                       <Link to={`${machine.id}`}>
                       <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-lime-500 hover:font-bold">Editar&nbsp;</button>
                       </Link>
-                      <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-red-500 hover:font-bold">Deletar&nbsp;</button>
+                      <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-red-500 hover:font-bold" onClick={() => handleDelete(machine.id)}>Deletar&nbsp;</button>
                     </div>
                 </Card>
               </CarouselItem>
