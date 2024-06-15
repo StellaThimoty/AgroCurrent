@@ -18,6 +18,7 @@ export default function CreateEddyCurrentForm() {
   const [part_machine, setPart_machine] = useState("")
   const [level, setLevel] = useState("")
   const [arrivalId, setArrivalId] = useState(0)
+  const date = Date.now();
   
   async function handleCreate() {
     const time = new Date(tempo)
@@ -77,12 +78,12 @@ export default function CreateEddyCurrentForm() {
           <div className="relative">
             <input
               className="peer block w-80 border border-black py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-              id="time"
-              type="time"
-              name="time"
+              id="date"
+              type="datetime-local"
+              name="date"
               value={tempo}
               onChange={(e)=>setTempo(e.target.value)}
-              placeholder="Coloque o nome"
+              placeholder={date.toString()}
               required
             />
             <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
