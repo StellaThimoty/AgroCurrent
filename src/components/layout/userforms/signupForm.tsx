@@ -1,13 +1,15 @@
 import {AtSymbolIcon,KeyIcon,TagIcon,PlusCircleIcon,UserIcon, ArrowLeftCircleIcon} from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { Button } from '../../ui/button';
-import { useAppDispatch } from '@/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
 import { register } from '@/hooks/slices/authSlice';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 
 export default function SignupForm() {
+  const user = useAppSelector((state) => state.auth.userInfo)
+  console.log(user)
   const dispatch = useAppDispatch()
   // const navigate = useNavigate()
   const [name, setName] = useState("")
@@ -126,11 +128,19 @@ export default function SignupForm() {
           </div>
         </div>
         <div className='flex'>
+          {user ? 
           <Link to="/Dashboard/Home">
             <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 mr-3 hover:bg-lime-200">
               Voltar <ArrowLeftCircleIcon className="w-6 mx-1" />
             </Button>
           </Link>
+          :
+          <Link to="/">
+            <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 mr-3 hover:bg-lime-200">
+              Voltar <ArrowLeftCircleIcon className="w-6 mx-1" />
+            </Button>
+          </Link>
+        }
           <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 ml-3 hover:bg-lime-200" onClick={handleSignup}>
             Cadastrar <PlusCircleIcon className="w-6 mx-1" />
           </Button>

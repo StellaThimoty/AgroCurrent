@@ -16,11 +16,8 @@ export default function Relatorios() {
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         { <CreateReportForm /> }
       </div>
-      {/* <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-        <Table query={query} currentPage={currentPage} />
-      </Suspense> */}
       <div className="mt-5 flex w-full justify-left">
-        {/* <Pagination totalPages={totalPages} /> */}
+        {/* Colocar resultados das pesquisas aqui */}
       </div>
     </div>
     </>

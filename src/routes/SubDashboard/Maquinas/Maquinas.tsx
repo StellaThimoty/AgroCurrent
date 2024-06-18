@@ -5,9 +5,10 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useAppDispatch } from "@/hooks/reduxHooks"
 import { deleteMachine, getMachineAll } from "@/hooks/slices/machineSlice"
 import { Machine } from "@/lib/types"
-import { isAdm, isReg } from "@/lib/utils"
+import { isAdm, isCst, isReg } from "@/lib/utils"
 import { useUser } from "@/routes/Dashboard"
 import { useEffect, useState } from "react"
+import { cn } from "@/lib/utils"
 import { Link } from "react-router-dom"
 
 export default function Maquinas() {
@@ -18,6 +19,7 @@ export default function Maquinas() {
   // const nome = userInfo[1]
   const adm = isAdm(cargo)
   const reg = isReg(cargo)
+  const cst = isCst(cargo)
 
   async function handleDelete(id:number) {
     await dispatch(deleteMachine(id)).unwrap()
@@ -54,12 +56,15 @@ export default function Maquinas() {
                   <CardFooter className="text-2xl items-center justify-center font-semibold">
                     {machine.id}
                   </CardFooter>
+                  {!cst ? 
                     <div className="flex items-center justify-between">
-                      <Link to={`${machine.id}`}>
-                      <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-lime-500 hover:font-bold">Editar&nbsp;</button>
-                      </Link>
-                      <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-red-500 hover:font-bold" onClick={() => handleDelete(machine.id)}>Deletar&nbsp;</button>
-                    </div>
+                     <Link to={`${machine.id}`}>
+                     <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-lime-500 hover:font-bold">Editar&nbsp;</button>
+                     </Link>
+                     <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-red-500 hover:font-bold" onClick={() => handleDelete(machine.id)}>Deletar&nbsp;</button>
+                    </div> 
+                    : null
+                  }
                 </Card>
               </CarouselItem>
             ))}

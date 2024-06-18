@@ -18,3 +18,10 @@ export function isReg(cargo: string) {
   else
     return false
 }
+
+export function isCst(cargo: string) {
+  if(cargo == 'Consultor')
+    return true
+  else
+    return false
+}
