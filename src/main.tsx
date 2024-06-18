@@ -57,12 +57,12 @@ const router = createHashRouter([
         element: <EditMachineForm/>
       },
       {
-        path: 'Vistorias',
-        element: <Vistorias/>
-      },
-      {
         path: 'Relatorios',
         element: <Relatorios/>
+      },
+      {
+        path: 'Vistorias',
+        element: <Vistorias/>
       },
       {
         path: 'Ajuda',
@@ -78,5 +78,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <RouterProvider router={router}/>
       <ToastContainer position="bottom-right"/>
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
