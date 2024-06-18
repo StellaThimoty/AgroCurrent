@@ -6,7 +6,12 @@ import { storeSensor } from '@/hooks/slices/sensorSlice';
 import {
   TagIcon,
   UserIcon,
-  PlusCircleIcon
+  PlusCircleIcon,
+  WrenchScrewdriverIcon,
+  Cog8ToothIcon,
+  ClipboardIcon,
+  ClockIcon,
+  TruckIcon
 } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
@@ -49,7 +54,7 @@ export default function CreateEddyCurrentForm() {
                 onChange={(e)=>setPart_machine(e.target.value)}
                 required
               />
-              <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <Cog8ToothIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>
@@ -68,7 +73,7 @@ export default function CreateEddyCurrentForm() {
               onChange={(e)=>setLocalization(e.target.value)}
               required
             />
-            <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            <ClipboardIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
           <div className="w-full">
           <label className="my-3 block font-medium text-gray-900" htmlFor="name">
@@ -85,7 +90,7 @@ export default function CreateEddyCurrentForm() {
               placeholder={date.toString()}
               required
             />
-            <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            <ClockIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
             <label className="my-3 block font-medium text-gray-900" htmlFor="category">
               Selecione o Nível de gravidade da Incongruência
@@ -122,7 +127,7 @@ export default function CreateEddyCurrentForm() {
                 onChange={(e)=>setArrivalId(Number(e.target.value))}
                 required
               />
-              <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <TruckIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>

@@ -3,7 +3,10 @@
 import {
   TagIcon,
   PlusCircleIcon,
-  UserIcon
+  UserIcon,
+  ClockIcon,
+  KeyIcon,
+  HomeModernIcon
 } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -61,7 +64,7 @@ export default function CreateReportForm() {
               onChange={(e) => setaddress(e.target.value)}
               required
             />
-            <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            <HomeModernIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
           <div className="w-full">
           <label className="my-3 block font-medium text-gray-900" htmlFor="name">
@@ -95,7 +98,7 @@ export default function CreateReportForm() {
               placeholder={date_departure.toString()}
               required
             />
-            <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            <ClockIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
           <div className="w-full">
           <label className="my-3 block font-medium text-gray-900" htmlFor="name">
@@ -112,7 +115,7 @@ export default function CreateReportForm() {
               onChange={(e) => setMachineId(Number(e.target.value))}
               required
             />
-            <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
           </div>
         </div>
