@@ -8,7 +8,6 @@ import { Machine } from "@/lib/types"
 import { isAdm, isCst, isReg } from "@/lib/utils"
 import { useUser } from "@/routes/Dashboard"
 import { useEffect, useState } from "react"
-import { cn } from "@/lib/utils"
 import { Link } from "react-router-dom"
 
 export default function Maquinas() {
@@ -22,7 +21,9 @@ export default function Maquinas() {
   const cst = isCst(cargo)
 
   async function handleDelete(id:number) {
+    const newMachines = machines.filter((machine) => {return machine.id !== id})
     await dispatch(deleteMachine(id)).unwrap()
+    setMachines(newMachines)
   }
 
   useEffect(() => {
@@ -45,33 +46,33 @@ export default function Maquinas() {
           { adm ? <CreateMachineForm/> : null }
           { reg ? <CreateMachineForm/> : null }
         </div>
-        <Carousel className="flex items-center w-full max-w-md">
-          <CarouselContent className="ml-1">
-            {machines.map((machine)=>(
-              <CarouselItem key={machine.id} className="basis-1/3 pl-2 md:pl4">
-                <Card>
-                  <CardContent className="flex aspect-square items-center justify-center p-6">
-                    {machine.name} - {machine.type}
-                  </CardContent>
-                  <CardFooter className="text-2xl items-center justify-center font-semibold">
-                    {machine.id}
-                  </CardFooter>
-                  {!cst ? 
-                    <div className="flex items-center justify-between">
-                     <Link to={`${machine.id}`}>
-                     <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-lime-500 hover:font-bold">Editar&nbsp;</button>
-                     </Link>
-                     <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-red-500 hover:font-bold" onClick={() => handleDelete(machine.id)}>Deletar&nbsp;</button>
-                    </div> 
-                    : null
-                  }
-                </Card>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
+          <Carousel className="flex items-center w-full max-w-md">
+            <CarouselContent className="ml-1">
+              {machines.map((machine)=>(
+                <CarouselItem key={machine.id} className="basis-1/3 pl-2 md:pl4">
+                  <Card>
+                    <CardContent className="flex aspect-square items-center justify-center p-6">
+                      {machine.name} - {machine.type}
+                    </CardContent>
+                    <CardFooter className="text-2xl items-center justify-center font-semibold">
+                      {machine.id}
+                    </CardFooter>
+                    {!cst ? 
+                      <div className="flex items-center justify-between">
+                       <Link to={`${machine.id}`}>
+                       <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-lime-500 hover:font-bold">Editar&nbsp;</button>
+                       </Link>
+                       <button className="flex text-black bg-yellow-500 px-2 py-2 hover:bg-red-500 hover:font-bold" onClick={() => handleDelete(machine.id)}>Deletar&nbsp;</button>
+                      </div> 
+                      : null
+                    }
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
       </div>
     </div>
     </>

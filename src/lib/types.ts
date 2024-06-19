@@ -15,10 +15,14 @@ export type NewUser = {
   category: string;
 };
 
+export type ArrivalState = AuthApiState & {
+  arrival: Arrival
+}
+
 export type Arrival = {
   id: number;
-  date_arrival: Date;
-  date_inspection: Date;
+  date_arrival: string;
+  date_inspection: string;
 }
 
 export type Departure = {
@@ -74,11 +78,14 @@ export type Report = {
 }
 
 export type Sensor = {
+  id: number;
   time: string;
   part_machine: string;
   localization: string;
   arrivalId: number;
 }
+
+export type NewSensor = Omit<Sensor, "id">
 
 export type SensorState = AuthApiState & {
   sensor: Sensor
@@ -90,8 +97,14 @@ export type AuthContextProps = {
   logoutUser: () => void;
 }
 
+export type Auth = {
+  token: string,
+  expiredAt: string,
+  refreshToken: string,
+}
+
 export type AuthApiState = {
-  userInfo?: Omit<User, "password"> | Omit<NewUser, "password" | "passwordConfirm"> | null;
+  userInfo?: Omit<User, "password"> | Omit<NewUser, "password" | "passwordConfirm"> | null | Auth;
   status: "idle" | "loading" | "failed";
   error: string | null;
 };

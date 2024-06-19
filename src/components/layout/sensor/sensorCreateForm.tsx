@@ -2,22 +2,23 @@
 
 import { Button } from '@/components/ui/button';
 import { useAppDispatch } from '@/hooks/reduxHooks';
-import { storeSensor } from '@/hooks/slices/sensorSlice';
+import { getArrivalAll } from '@/hooks/slices/arrivalSlice';
+import { getSensorAll, storeSensor } from '@/hooks/slices/sensorSlice';
+import { Arrival } from '@/lib/types';
 import {
   TagIcon,
-  UserIcon,
   PlusCircleIcon,
-  WrenchScrewdriverIcon,
   Cog8ToothIcon,
   ClipboardIcon,
   ClockIcon,
   TruckIcon
 } from '@heroicons/react/24/outline';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
   
 export default function CreateEddyCurrentForm() {
   const dispatch = useAppDispatch()
+  const [arrivals, setArrivals] = useState<Arrival[]>([])
   const [localization, setLocalization] = useState("")
   const [time, setTime] = useState("")
   const [part_machine, setPart_machine] = useState("")
@@ -32,6 +33,17 @@ export default function CreateEddyCurrentForm() {
         console.error(e)
       }
   }
+
+  useEffect(() => {
+    async function getArrivals() {
+      const response = await dispatch(getArrivalAll()).unwrap()
+      console.log(response)
+      setArrivals(response)
+    }
+
+    getArrivals()
+  }, [dispatch])
+
   return (
     <div>
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
@@ -81,7 +93,7 @@ export default function CreateEddyCurrentForm() {
           </label>
           <div className="relative">
             <input
-              className="peer block w-80 border border-black py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+              className="peer block w-80 border border-black py-[9px] pl-10 text-sm outline-2 pr-2 placeholder:text-gray-500"
               id="date"
               type="datetime-local"
               name="date"
@@ -107,7 +119,7 @@ export default function CreateEddyCurrentForm() {
                 <option value="Medio">Medio</option>
                 <option value="Alto">Alto</option>
               </select>
-              <TagIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 mx-1 peer-focus:text-gray-900" />
+              <TagIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 mx-1 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>
@@ -117,23 +129,26 @@ export default function CreateEddyCurrentForm() {
           </label>
           <div className="w-full">
             <div className="relative">
-              <input
-                className="peer block w-80 border border-black py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                id="localization"
-                type="number"
-                name="localization"
-                placeholder="Coloque a chegada"
+              <select
+                className="peer block w-80 rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                id="arrivalId"
+                name="arrivalId"
                 value={arrivalId}
                 onChange={(e)=>setArrivalId(Number(e.target.value))}
                 required
-              />
+              >
+            <option value="">Escolha uma chegada</option>
+            {arrivals.map((arrival) => (
+              <option key={arrival.id} value={arrival.id}>{arrival.date_arrival}</option>
+            ))}
+              </select>
               <TruckIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
-        </div>
-        <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 ml-3 hover:bg-lime-200" onClick={handleCreate}>
+          <Button className="mt-7 mb-2 flex text-black bg-yellow-500 px-2 py-2 hover:bg-lime-200" onClick={handleCreate}>
             Cadastrar <PlusCircleIcon className="w-6 mx-1" />
           </Button>
+        </div>
       </div>
     </div>
   );

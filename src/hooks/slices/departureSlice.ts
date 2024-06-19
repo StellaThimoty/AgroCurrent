@@ -66,7 +66,7 @@ export const getDepartureById = createAsyncThunk("getDepartureById", async (id:n
   }
 })
 
-export const updateDeparture = createAsyncThunk("updateDeparture",async (data:DepartureUpdate, { rejectWithValue }) => {
+export const updateDeparture = createAsyncThunk("updateDeparture",async (data:Partial<DepartureUpdate>, { rejectWithValue }) => {
   try {
     const res = await axiosInstance.put(`/departure/${data.id}`, data)
     const resData = res.data
@@ -124,7 +124,6 @@ const departureSlice = createSlice({
     })
 
     .addCase(getDepartureAll.pending, (state) =>{
-      toast.loading("Carregando...")
       state.status = "loading"
       state.error = null
     })
@@ -151,7 +150,7 @@ const departureSlice = createSlice({
       toast.dismiss()
       toast.success("Saída encontrada!")
       state.status = "idle"
-      return action.payload
+      state.departure = action.payload
     })
     .addCase(getDepartureById.rejected, (state, action) =>{
       toast.dismiss()
@@ -171,7 +170,7 @@ const departureSlice = createSlice({
       toast.dismiss()
       toast.success("Saída atualizada!")
       state.status = "idle"
-      return action.payload
+      state.departure = action.payload
     })
     .addCase(updateDeparture.rejected, (state, action) =>{
       toast.dismiss()
@@ -191,7 +190,7 @@ const departureSlice = createSlice({
       toast.dismiss()
       toast.success("Saída deletada!")
       state.status = "idle"
-      return action.payload
+      state.departure = action.payload
     })
     .addCase(deleteDeparture.rejected, (state, action) =>{
       toast.dismiss()

@@ -88,17 +88,17 @@ export default function EditMachineForm() {
               <TagIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 mx-1 peer-focus:text-gray-900" />
             </div>
           </div>
-        </div>
           <div className='flex'>
-          <Link to="/Dashboard/Maquinas">
-              <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 mr-3 hover:bg-lime-200">
+            <Link to="/Dashboard/Maquinas">
+              <Button className="mt-7 mb-2 mr-2 flex text-black bg-yellow-500 px-2 py-2 hover:bg-lime-200">
                 Voltar <ArrowLeftCircleIcon className="w-6 mx-1" />
               </Button>
             </Link>
-          <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 hover:bg-lime-200" onClick={handleEdit}>
-            Editar <PlusCircleIcon className="w-6 mx-1" />
-          </Button>
+            <Button className="mt-7 mb-2 ml-2 flex text-black bg-yellow-500 px-2 py-2 hover:bg-lime-200" onClick={handleEdit}>
+              Editar <PlusCircleIcon className="w-6 mx-1" />
+            </Button>
           </div>
         </div>
+      </div>
   );
 }

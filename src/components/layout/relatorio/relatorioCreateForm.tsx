@@ -1,7 +1,6 @@
 'use client'
 
 import {
-  TagIcon,
   PlusCircleIcon,
   UserIcon,
   ClockIcon,
@@ -11,12 +10,14 @@ import {
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useAppDispatch } from '@/hooks/reduxHooks';
-import { storeMachine } from '@/hooks/slices/machineSlice';
-import { toast } from 'react-toastify';
-import { storeReport } from '@/hooks/slices/reportSlice';
 import { storeDeparture } from '@/hooks/slices/departureSlice';
+import { Machine } from '@/lib/types';
 
-export default function CreateReportForm() {
+type reportProps = {
+  machines: Machine[]
+}
+
+export default function CreateReportForm({machines}: reportProps) {
   const dispatch = useAppDispatch()
   // const navigate = useNavigate()
   const [address, setaddress] = useState("")
@@ -26,18 +27,7 @@ export default function CreateReportForm() {
   
   async function handleCreate() {
       try {
-        toast.loading("Carregando...")
         await dispatch(storeDeparture({address, client, date_departure, machineId}))
-        .then(() => {
-          toast.dismiss()
-          toast.success("Formulário criada!")
-        },
-        () =>{
-          toast.dismiss()
-          toast.error("Erro ao criar formulário!")
-        })
-        // await dispatch(login({email, password})).unwrap()
-        // navigate("/dashboard")
       } catch(e) {
         console.error(e)
       }
@@ -105,21 +95,24 @@ export default function CreateReportForm() {
             Id Máquina
           </label>
           <div className="relative">
-            <input
-              className="peer block w-80 border border-black py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+            <select
+              className="peer block w-80 rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
               id="name"
-              type="number"
               name="name"
-              placeholder="Coloque o Id da Máquina"
               value={machineId}
               onChange={(e) => setMachineId(Number(e.target.value))}
               required
-            />
+            >
+            <option value="">Escolha uma máquina</option>
+            {machines.map((machine) => (
+              <option key={machine.id} value={machine.id}>{machine.name} - {machine.type}</option>
+            ))}
+            </select>
             <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
           </div>
         </div>
-        <Button className="mt-7 flex text-black bg-yellow-500 px-2 py-2 my-2 hover:bg-lime-200" onClick={handleCreate}>
+        <Button className="mt-7 mb-2 flex text-black bg-yellow-500 px-2 py-2 hover:bg-lime-200" onClick={handleCreate}>
           Cadastrar <PlusCircleIcon className="w-6 mx-1" />
         </Button>
     </div>

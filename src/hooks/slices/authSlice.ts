@@ -59,6 +59,21 @@ export const logout = createAsyncThunk("logout", async (_, {rejectWithValue}) =>
   }
 })
 
+export const refresh = createAsyncThunk("refresh", async (data: {token: string, expiredAt: string, refreshToken: string}, {rejectWithValue}) => {
+  try {
+    const res = await axiosInstance.post("/auth/refresh", data, {headers: {Authorization: data.refreshToken}})
+    const resData = res.data
+    localStorage.setItem("userInfo", JSON.stringify(resData))
+    return resData
+  } catch (error) {
+    if (error instanceof AxiosError && error.response) {
+      const errorResponse = error.response.data
+
+      return rejectWithValue(errorResponse)
+    }
+  }
+})
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -115,7 +130,6 @@ const authSlice = createSlice({
       state.status = "loading";
       state.error = null;
     })
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     .addCase(logout.fulfilled, (state) => {
       toast.dismiss()
       toast.success("Logout com sucesso!")
@@ -128,7 +142,24 @@ const authSlice = createSlice({
       state.status = "failed";
       //Sem wrapper porque o único erro de logout é referente a token e como o post não envia um corpo
       //Não temos como passar um wrapper, a mensagem de erro já é suficiente
-      state.error = action.error.message || "Logout failed";
+      state.error = action.error.message || "Falha no logout";
+    })
+    .addCase(refresh.pending, (state) => {
+      toast.loading("Carregando...")
+      state.status = "loading";
+      state.error = null;
+    })
+    .addCase(refresh.fulfilled, (state) => {
+      toast.dismiss()
+      toast.success("Refresh com sucesso!")
+      state.status = "idle";
+      state.userInfo = null;
+    })
+    .addCase(refresh.rejected, (state, action) => {
+      toast.dismiss()
+      toast.error("Erro ao refresh!")
+      state.status = "failed";
+      state.error = action.error.message || "Falha no refresh";
     })
   },
 });

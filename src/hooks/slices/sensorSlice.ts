@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
 import { toast } from 'react-toastify'
-import { ApiErrorType, Sensor, SensorState } from "@/lib/types";
+import { ApiErrorType, NewSensor, Sensor, SensorState } from "@/lib/types";
 import { AxiosError } from "axios";
 
 const initialState: SensorState = {
   userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string) : null,
   sensor: {
+    id: 0,
     time: "",
     part_machine: "",
     localization: "",
@@ -16,24 +17,9 @@ const initialState: SensorState = {
   error: null,
 }
 
-export const storeSensor = createAsyncThunk("storeSensor", async (data: Sensor,{ rejectWithValue }) => {
+export const storeSensor = createAsyncThunk("storeSensor", async (data: NewSensor,{ rejectWithValue }) => {
   try {
     const res = await axiosInstance.post("/sensor", data)
-    const resData = res.data
-
-    return resData
-  } catch (error) {
-    if (error instanceof AxiosError && error.response) {
-      const errorResponse = error.response.data
-      return rejectWithValue(errorResponse)
-    }
-    throw error
-  }
-})
-
-export const getSensorAll = createAsyncThunk("getSensorAll", async (_,{ rejectWithValue }) => {
-  try {
-    const res = await axiosInstance.get("/sensor")
     const resData = res.data
 
     return resData
@@ -50,7 +36,7 @@ export const getSensorById = createAsyncThunk("getSensorById", async (id:number,
   try {
     const res = await axiosInstance.get(`/sensor/${id}`)
     const resData = res.data
-
+    console.log(resData)
     return resData
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
