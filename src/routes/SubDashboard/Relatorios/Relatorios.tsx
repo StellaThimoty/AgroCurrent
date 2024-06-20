@@ -42,7 +42,7 @@ export default function Relatorios() {
 
     getMachines()
     getDepartures()
-  }, [])
+  }, [dispatch])
   return (
     <>
     <div className="w-full">

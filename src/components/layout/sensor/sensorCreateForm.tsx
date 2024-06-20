@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import { getArrivalAll } from '@/hooks/slices/arrivalSlice';
-import { getSensorAll, storeSensor } from '@/hooks/slices/sensorSlice';
+import { storeSensor } from '@/hooks/slices/sensorSlice';
 import { Arrival } from '@/lib/types';
 import {
   TagIcon,

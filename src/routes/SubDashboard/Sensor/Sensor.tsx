@@ -21,11 +21,11 @@ export default function Sensores() {
 
   useEffect(() => {
     document.title = "Agro Current - Sensor"
-    async function getSensors() {
-      const response = await dispatch(getSensorById(1)).unwrap()
-      setSensors(response)
-    }
-    getSensors()
+    // async function getSensors() {
+      // const response = await dispatch(getSensorById(1)).unwrap()
+      // setSensors(response)
+    // }
+    // getSensors()
   }, [dispatch])
 
   return (
