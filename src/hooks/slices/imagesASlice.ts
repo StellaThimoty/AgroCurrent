@@ -7,7 +7,7 @@ import { AxiosError } from "axios";
 const initialState: ImagesArrivalState = {
   userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string) : null,
   imagesArrival: {
-    images: [],
+    address_image: "",
     arrivalId: 0,
   },
   status: "idle",

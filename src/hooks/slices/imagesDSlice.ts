@@ -7,7 +7,7 @@ import { AxiosError } from "axios";
 const initialState: ImagesDepartureState = {
   userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string) : null,
   imagesDeparture: {
-    images: [],
+    address_image: "",
     departureId: 0,
   },
   status: "idle",
@@ -15,9 +15,10 @@ const initialState: ImagesDepartureState = {
 }
 export const storeImagesDeparture = createAsyncThunk("storeImagesDeparture", async (data: ImagesDeparture,{ rejectWithValue }) => {
   try {
+    console.log(data)
     const res = await axiosInstance.post(`/imagesDeparture/${data.departureId}`, data)
     const resData = res.data
-
+    console.log(resData)
     return resData
   } catch (error) {
     if (error instanceof AxiosError && error.response) {

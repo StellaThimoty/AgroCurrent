@@ -18,7 +18,8 @@ import Sensor from './routes/SubDashboard/Sensor/Sensor';
 import Ajuda from './routes/SubDashboard/Ajuda';
 import Usuario from './routes/SubDashboard/Usuario/Usuario';
 import EditMachineForm from './components/layout/maquina/maquinaEditForm';
-import EditReportForm from './components/layout/relatorio/relatorioEditForm';
+import EditReportForm from './components/layout/relatorio/saida/relatorioEditForm';
+import ImagesDepartureForm from './components/layout/relatorio/saida/imagesForm';
 
 const router = createHashRouter([
   {
@@ -64,6 +65,10 @@ const router = createHashRouter([
       {
         path: 'Relatorios/:id',
         element: <EditReportForm/>
+      },
+      {
+        path: 'ImagesD/:id',
+        element: <ImagesDepartureForm/>
       },
       {
         path: 'Vistorias',

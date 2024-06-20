@@ -25,7 +25,7 @@ export default function Dashboard() {
     const intervalo = setInterval(async () => {
     const newUser =  await dispatch(refresh(user.current as Auth)).unwrap()
     user.current = newUser
-    }, 60*60*999)
+    }, 60*60*100)
     return () => clearInterval(intervalo)
   }, [dispatch, user])
 

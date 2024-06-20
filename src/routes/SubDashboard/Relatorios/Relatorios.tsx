@@ -1,6 +1,6 @@
 // import Search from '@/app/ui/search';
 
-import CreateReportForm from "@/components/layout/relatorio/relatorioCreateForm"
+import CreateReportForm from "@/components/layout/relatorio/saida/relatorioCreateForm"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel"
 import { useAppDispatch } from "@/hooks/reduxHooks"
@@ -67,9 +67,12 @@ export default function Relatorios() {
                     </CardContent>
                       <div className="flex items-center justify-center pb-4">
                        <Link to={`${departure.id}`}>
-                        <button className="flex text-black bg-yellow-500 mr-8 px-8 py-4 hover:bg-lime-500 hover:font-bold">Editar&nbsp;</button>
+                        <button className="flex text-black bg-yellow-500 mr-4 px-8 py-4 hover:bg-lime-500 hover:font-bold">Editar&nbsp;</button>
                        </Link>
-                        <button className="flex text-black bg-yellow-500 ml-8 px-8 py-4 hover:bg-red-500 hover:font-bold" onClick={() => handleDelete(departure.id)}>Deletar&nbsp;</button>
+                       <Link to={`/Dashboard/ImagesD/${departure.id}`}>
+                        <button className="flex text-black bg-yellow-500 px-2 py-4 hover:bg-blue-500 hover:font-bold">Adicionar Imagens&nbsp;</button>
+                       </Link>
+                        <button className="flex text-black bg-yellow-500 ml-4 px-8 py-4 hover:bg-red-500 hover:font-bold" onClick={() => handleDelete(departure.id)}>Deletar&nbsp;</button>
                       </div>
                   </Card>
                 </CarouselItem>

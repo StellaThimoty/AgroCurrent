@@ -42,7 +42,7 @@ export type DepartureState = AuthApiState & {
 export type DepartureUpdate = Omit<Departure, "machineId">
 
 export type Image = {
-  images: string[];
+  address_image: string;
 }
 
 export type ImagesDeparture = Image & {

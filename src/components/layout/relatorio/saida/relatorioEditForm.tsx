@@ -1,5 +1,3 @@
-'use client'
-
 import {
   PlusCircleIcon,
   UserIcon,
@@ -11,6 +9,7 @@ import { useAppDispatch } from '@/hooks/reduxHooks';
 import { getDepartureById, updateDeparture } from '@/hooks/slices/departureSlice';
 import { Link, useParams } from 'react-router-dom';
 import { Departure } from '@/lib/types';
+import { storeImagesDeparture } from '@/hooks/slices/imagesDSlice';
 
 export default function EditReportForm() {
   const dispatch = useAppDispatch()
@@ -21,16 +20,16 @@ export default function EditReportForm() {
   const [address, setAddress] = useState<string | undefined>("")
   const [client, setClient] = useState<string | undefined>("")
   const [date_departure, setDateDeparture] = useState<string | undefined>("")
-  
+
   useEffect(() => {
     async function getDeparture() {
       const response = await dispatch(getDepartureById(departureId)).unwrap()
+
       setDeparture(response[0])
       setAddress(departure?.address)
       setClient(departure?.client)
       setDateDeparture(departure?.date_departure)
     }
-
     getDeparture()
   }, [departureId, departure?.address, departure?.client, departure?.date_departure, dispatch])
 
@@ -42,13 +41,16 @@ export default function EditReportForm() {
         client: client,
         date_departure: date_departure,
       }
+      
       await dispatch(updateDeparture(data)).unwrap()
       // await dispatch(login({email, password})).unwrap()
       // navigate("/dashboard")
     } catch(e) {
       console.error(e)
     }
-}
+  }
+
+
   
   return (
     <div>
@@ -124,3 +126,4 @@ export default function EditReportForm() {
 </div>
   );
 }
+

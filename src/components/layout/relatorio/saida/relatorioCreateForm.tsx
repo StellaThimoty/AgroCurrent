@@ -24,7 +24,7 @@ export default function CreateReportForm({machines}: reportProps) {
   const [client, setClient] = useState("")
   const [date_departure, setDateDeparture] = useState("")
   const [machineId, setMachineId] = useState(0)
-  
+
   async function handleCreate() {
       try {
         await dispatch(storeDeparture({address, client, date_departure, machineId}))
